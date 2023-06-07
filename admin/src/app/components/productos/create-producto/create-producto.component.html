@@ -1,0 +1,77 @@
+<app-sidebar></app-sidebar>
+<div class="border-bottom pt-5 mt-2 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Productos</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+      <p class="text-muted">Este módulo lista todos los productos de la tienda.</p>
+      
+    </div>
+  </div>
+      <form #registroForm="ngForm" (ngSubmit)="registro(registroForm)">
+
+        <div class="card box-shadow-sm">
+          <div class="card-header">
+              <h5 style="margin-bottom: 0px;">Registro de producto</h5>
+          </div>
+          <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-8">
+                      <div class="row">
+                        <div class="col-lg-12 form-group">	
+                            <label for="">Titulo de producto</label>
+                            <input type="text" class="form-control" name="titulo" [(ngModel)]="producto.titulo" placeholder="Titulo de producto" required>
+                        </div>
+                        <div class="col-lg-4 form-group">	
+                            <label for="">Stock</label>
+                            <input type="number" name="stock" [(ngModel)]="producto.stock" class="form-control" placeholder="Cantidad inicial" required>
+                        </div>
+                        <div class="col-lg-4 form-group">	
+                            <label for="">Precio</label>
+                            <input type="number" name="precio" [(ngModel)]="producto.precio" class="form-control" placeholder="Precio" required>
+                        </div>
+                        <div class="col-lg-4 form-group">	
+                            <label for="">Categoría</label>
+                            <select class="form-control custom-select" name="categoria" [(ngModel)]="producto.categoria"  id="select-input">
+                              <option value="" selected disabled>Seleccionar</option>
+                              <option value="Categoria 1">Categoria 1</option>
+                              <option value="Categoria 2">Categoria 2</option>
+                              <option value="Categoria 3">Categoria 3</option>
+                            </select>
+                        </div>
+
+                        <div class="col-lg-12 form-group">
+                            <label for="">Descripción corta</label>
+                            <textarea class="form-control" name="descripcion" [(ngModel)]="producto.descripcion" placeholder="Titulo de producto" required rows="5"></textarea>
+                        </div>
+
+                        <div class="col-lg-12 form-group">
+                          <tinymce [config]="config" name="contenido" [(ngModel)]="producto.contenido"></tinymce>
+                        </div>
+
+                      </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="row">
+                      <div class="col-lg-12 form-group">	
+                          <label for="">Portada</label>
+                          <div class="custom-file">
+                            <input class="custom-file-input" type="file" id="file-input" (change)="fileChangeEvent($event)">
+                            <label class="custom-file-label" id="input-portada" style="white-space:nowrap;overflow:hidden;" for="file-input">Seleccionar imagen</label>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                        <img  [src]="imgSelect" class="img-thumbnail" alt="Rounded image">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+          </div>
+          <div class="card-footer">
+            <button *ngIf="!load_btn" class="btn btn-primary mr-3" type="submit">Crear producto</button>
+            <button *ngIf="load_btn" type="button" class="btn btn-secondary" disabled>
+                <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
+                Creando...
+            </button>
+            <a class="btn btn-warning" [routerLink]="['/panel/productos']" routerLinkActive="router-link-active" >Regresar</a>
+        </div>
+    </div>   
+  </form>

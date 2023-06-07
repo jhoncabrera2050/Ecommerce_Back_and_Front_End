@@ -1,0 +1,708 @@
+<app-nav></app-nav>
+
+<main class="cs-page-wrapper">
+
+    <nav class="mb-3" aria-label="breadcrumb">
+        <div class="container">
+          <ol class="breadcrumb breadcrumb-alt mb-0">
+            <li class="breadcrumb-item">
+              <a [routerLink]="['/']" ><i class="cxi-home"></i></a>
+            </li>
+            
+            <li class="breadcrumb-item">
+              <a *ngIf="producto.categoria" [routerLink]="['/productos/categoria/',producto.categoria.toLowerCase()]" routerLinkActive="router-link-active" >{{producto.categoria}}</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">{{producto.titulo}}</li>
+          </ol>
+        </div>
+      </nav>
+      <section class="container d-md-flex align-items-center justify-content-between py-3 py-md-4 mb-3">
+        <h1 class="mb-2 mb-md-0">{{producto.titulo}}</h1>
+        <span class="text-muted" *ngIf="producto._id"><strong>Art. No.</strong>{{producto._id.toUpperCase()}}</span>
+      </section>
+
+
+      <section class="container py-md-6 py-5 mb-2">
+        <div class="row">
+          <div class="col-md-6 mb-md-0 mb-4">
+
+            <!-- Product gallery -->
+            <div class="cs-gallery cs-product-gallery mx-auto" style="max-width: 570px;">
+              <div class="cs-carousel-inner" data-carousel-options=''>
+
+                <!-- Product gallery item -->
+                <a class="cs-gallery-item" *ngFor="let item of producto.galeria; let indice = index " href="{{url+'obtener_portada/'+item.imagen}}" data-sub-html='<h6 class="text-light">Galeria del producto #1</h6>'>
+                  <img class="rounded" [src]="url+'obtener_portada/'+item.imagen" alt="Carousel image">
+                  <span class="cs-gallery-caption">Imagen # {{indice+1}}</span>
+                </a>
+
+              </div>
+
+              <!-- Product gallery thumbnails -->
+              <div class="cs-thumbnails" id="cs-thumbnails">
+                <button type="button" *ngFor="let item of producto.galeria; let indice = index" [attr.data-nav]="indice">
+                  <img [src]="url+'obtener_portada/'+item.imagen" alt="Thumbnail">
+                </button>
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 pl-xl-5">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+
+              <!-- Price -->
+              <div class="d-flex align-items-center mb-sm-0 mb-4" *ngIf="descuento_activo != undefined">
+                <span class="h3 d-inline-block mb-0 text-danger" *ngIf="descuento_activo">${{producto.precio}}</span>
+                <del class="d-inline-block ml-2 pl-1 font-size-lg text-muted">${{producto.precio}}</del>
+                <span class="ml-4 p-2 badge badge-danger font-size-base font-weight-bold" *ngIf="descuento_activo">- {{descuento_activo.descuento}}%</span>
+              </div>
+    
+              <div class="d-flex align-items-center mb-sm-0 mb-4" *ngIf="descuento_activo == undefined">
+                <span class="h3 d-inline-block mb-0">${{producto.precio}}</span>
+                
+              </div>
+
+              <!-- Rating -->
+              <div class="text-sm-right">
+                <div class="star-rating mb-3 pb-1">
+                  <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_raiting >=1}"></i>
+                      <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_raiting >=2}"></i>
+                      <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_raiting >=3}"></i>
+                      <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_raiting >=4}"></i>
+                      <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_raiting >=5}"></i>
+                </div>
+                <span class="font-size-sm text-muted">{{reviews.length}} review</span>
+              </div>
+            </div>
+
+            <!-- Ordering form -->
+            <form class="row">
+             <!--<div class="col-12">
+                <div class="form-group">
+                  <label for="pink">Color</label>
+                  <div class="d-flex align-items-middle">
+                    <div class="custom-control cs-custom-color-option cs-custom-color-option-sm custom-control-inline mr-2 mb-2">
+                      <input class="custom-control-input" type="radio" name="color" id="pink" value="Pink" data-label="colorOptionText" checked>
+                      <label class="cs-custom-option-label" for="pink">
+                        <span class="cs-color-swatch" style="background-color: #e0aea2;"></span>
+                      </label>
+                    </div>
+                    <div class="custom-control cs-custom-color-option cs-custom-color-option-sm custom-control-inline mr-2 mb-2">
+                      <input class="custom-control-input" type="radio" name="color" id="blue" value="Blue" data-label="colorOptionText">
+                      <label class="cs-custom-option-label" for="blue">
+                        <span class="cs-color-swatch" style="background-color: #c0dded;"></span>
+                      </label>
+                    </div>
+                    <div class="custom-control cs-custom-color-option cs-custom-color-option-sm custom-control-inline mr-2 mb-2">
+                      <input class="custom-control-input" type="radio" name="color" id="yellow" value="Yellow" data-label="colorOptionText">
+                      <label class="cs-custom-option-label" for="yellow">
+                        <span class="cs-color-swatch" style="background-color: #fede41;"></span>
+                      </label>
+                    </div>
+                    <span class="d-inline-block pl-2 text-muted" id="colorOptionText">Pink</span>
+                  </div>
+                </div>
+              </div>-->
+              <div class="col-sm-8 order-sm-1 order-2">
+                <div class="form-group">
+                  <label for="size">{{producto.titulo_variedad}}</label>
+                  <select class="form-control custom-select" id="size" name="variedad" [(ngModel)]="carrito_data.variedad">
+                    <option value="" selected disabled>Seleccionar</option>
+                    <option value="{{item.titulo}}" *ngFor="let item of producto.variedades">{{item.titulo}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-4 order-sm-2 order-1 text-sm-right">
+                <a *ngIf="producto.categoria == 'Moda'" href="#modal-sizing" data-toggle="modal" class="d-inline-block mt-sm-4 mb-sm-0 mb-4 pt-sm-3 font-weight-bold text-decoration-0 text-dark">
+                  <i class="cxi-hanger mr-2"></i>
+                  Tallas
+                </a>
+              </div>
+              <div class="col-lg-2 col-4 order-lg-3 order-3">
+                <div class="form-group">
+                  <select class="form-control custom-select" id="select-input" name="cantidad" [(ngModel)]="carrito_data.cantidad">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-6 order-lg-4 order-4">
+                <button *ngIf="!btn_cart" class="btn btn-block btn-primary" >
+                  <i class="cxi-cart mr-2"></i>
+                  Agregar al carrito
+                </button>
+                <button *ngIf="btn_cart" type="button" class="btn btn-primary" disabled>
+                  <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+                  Agregando...
+                </button>
+              </div>
+              <div class="col-lg-4 col-8 order-lg-5 order-2">
+                <button class="btn btn-block btn-outline-primary px-lg-4">
+                  <i class="cxi-heart mr-2"></i>
+                  Favoritos
+                </button>
+              </div>
+            </form>
+
+            <!-- Terms -->
+            <!-- Accordion made of cards -->
+            <div class="accordion-alt mb-4" id="productTerms">
+
+              <!-- Card -->
+              <div class="card border-bottom">
+                <div class="card-header" id="delivery-card">
+                  <h6 class="accordion-heading">
+                    <a href="#delivery" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="delivery">Delivery
+                      <span class="accordion-indicator"></span>
+                    </a>
+                  </h6>
+                </div>
+                <div class="collapse" id="delivery" aria-labelledby="delivery-card" data-parent="#productTerms">
+                  <div class="card-body">
+                    <p class="font-size-sm">
+                      Envío estándar gratuito en pedidos <strong>superiores a $35</strong> antes de impuestos, más devoluciones gratuitas.
+                    </p>
+
+                    <!-- Delivery table -->
+                    <div class="table-responsive px-md-3">
+                      <table class="table mb-0" style="min-width: 450px;">
+                        <thead class="font-size-xs text-uppercase text-muted">
+                          <tr>
+                            <th class="border-0 font-weight-normal">Type</th>
+                            <th class="border-0 font-weight-normal">How long</th>
+                            <th class="border-0 font-weight-normal">How much</th>
+                          </tr>
+                        </thead>
+                        <tbody class="font-size-sm">
+                          <tr>
+                            <th class="font-weight-normal">Standard delivery</th>
+                            <td>1-4 business days</td>
+                            <td>$4.50</td>
+                          </tr>
+                          <tr>
+                            <th class="font-weight-normal">Express delivery</th>
+                            <td>1 business day</td>
+                            <td>$10.00</td>
+                          </tr>
+                          <tr>
+                            <th class="font-weight-normal">Pick up in store</th>
+                            <td>1-3 business days</td>
+                            <td>Free</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Card -->
+              <div class="card border-bottom">
+                <div class="card-header" id="return-card">
+                  <h6 class="accordion-heading">
+                    <a class="collapsed" href="#return" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="return">Devoluciones
+                      <span class="accordion-indicator"></span>
+                    </a>
+                  </h6>
+                </div>
+                <div class="collapse" id="return" aria-labelledby="return-card" data-parent="#productTerms">
+                  <p class="font-size-sm">
+                    Tienes <strong>60 días</strong> para devolver los artículos utilizando cualquiera de los siguientes métodos:
+                  </p>
+                  <ul class="mb-4 pl-3">
+                    <li>Free store return</li>
+                    <li>Free returns via USPS Dropoff Service</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Share -->
+            <div class="mb-5 text-nowrap">
+              <h6 class="d-inline-block align-middle mr-2 mb-0">Compartir:</h6>
+              <a class="social-btn sb-solid align-middle mr-2" data-toggle="tooltip" title="Facebook">
+                <i class="cxi-facebook"></i>
+              </a>
+              <a href="https://www.instagram.com/growshopskt2/?hl=es-la" class="social-btn sb-solid align-middle mr-2" data-toggle="tooltip" title="Twitter">
+                <i class="cxi-instagram"></i>
+              </a>
+              
+            </div>
+
+            <!-- Payment -->
+            <div class="pb-3 text-nowrap" data-simplebar data-simplebar-auto-hide="false">
+              <a class="d-inline-block mb-3 mr-xl-4 mr-3">
+                <img src="/assets/img//visa.jpg" alt="Visa" class="border rounded">
+              </a>
+              <a class="d-inline-block mb-3 mr-xl-4 mr-3">
+                <img src="/assets/img/master-card.jpg" alt="Mastercard" class="border rounded">
+              </a>
+              <a class="d-inline-block mb-3">
+                <img src="/assets/img/pay-pal.jpg" alt="PayPal" class="border rounded">
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="py-5" style="background-color: #e5e8ed;">
+        <section  class="container my-lg-2 py-2 py-md-4" >
+          <div class="row">
+            <div class="col-lg-7 col-md-8 mb-md-0 mb-4" [innerHTML]="producto.contenido">
+              
+            </div>
+            <div class="col-md-4 offset-lg-1">
+  
+              <!-- Product card carousel -->
+              <div class="card card-product">
+                <div class="card-product-img">
+                  <div class="cs-controls-onhover">
+                    <a class="cs-carousel-inner">
+                      <div><img class="card-img-top" [src]="url+'obtener_portada/'+producto.portada" alt="Product image"></div>
+                     
+                    </a>
+                  </div>
+                  <div class="card-product-widgets-top">
+                    <div class="star-rating mb-3 pb-1">
+                      <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_raiting >=1}"></i>
+                          <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_raiting >=2}"></i>
+                          <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_raiting >=3}"></i>
+                          <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_raiting >=4}"></i>
+                          <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_raiting >=5}"></i>
+                    </div>
+                  </div>
+                  <div class="card-product-widgets-bottom">
+                    <a class="btn-wishlist ml-auto" href="#" data-toggle="tooltip" data-placement="left" title="Add to wishlist"></a>
+                  </div>
+                </div>
+                <div class="card-body pb-2" style="background-color: white;">
+                  <h3 class="card-product-title text-truncate mb-2">
+                    <a href="#" class="nav-link">{{producto.titulo}}</a>
+                  </h3>
+
+                  <div class="d-flex align-items-center mb-3" *ngIf="descuento_activo == undefined">
+                    <span class="h5 d-inline-block mb-0">${{producto.precio}}</span>
+                  </div>
+                  <div class="d-flex align-items-center mb-3" *ngIf="descuento_activo != undefined">
+                    <span class="h5 d-inline-block text-danger mb-0">${{producto.precio}}</span>
+                    <del class="d-inline-block ml-2 pl-1 text-muted">${{producto.precio}}</del>
+                  </div>
+
+                  <button type="button" class="btn btn-primary btn-block" style="margin-bottom: 1rem;">
+                    <i class="cxi-cart align-middle mt-n1 mr-2"></i>
+                    Añadir al carrito
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section class="container py-md-6 py-5 mb-2">
+        <div class="row mb-5" *ngIf="descuento_activo != undefined">
+          <div class="col-12">
+            <img [src]="url+'obtener_banner_descuento/'+descuento_activo.banner" style="width: 100% !important;">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-7 col-md-8 mb-md-0 mb-5">
+            <div class="row mb-sm-5 mb-4 pb-2 pb-md-4">
+
+              <!-- Rating -->
+  <!-- Rating -->
+  <div class="col-sm-5 mb-sm-0 mb-4">
+    <h3 class="h2 mb-3 pb-1">{{reviews.length}} reviews</h3>
+    <div class="star-rating mb-3 pb-1">
+      <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_raiting >=1}"></i>
+          <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_raiting >=2}"></i>
+          <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_raiting >=3}"></i>
+          <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_raiting >=4}"></i>
+          <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_raiting >=5}"></i>
+    </div>
+    <span class="font-size-sm text-muted">
+      9 out of 12 ({{porcent_raiting}}%) <br>
+      Compradores satisfechos con el producto
+    </span>
+  </div>
+
+  <!-- Reviews -->
+  <div class="col-sm-7">
+
+    <!-- 5 stars -->
+    <div class="d-flex align-items-center mb-2">
+      <div class="text-nowrap text-muted mr-3">
+        <span class="d-inline-block align-middle">5</span>
+        <i class="cxi-star font-size-sm align-middle ml-1"></i>
+      </div>
+      <div class="w-100">
+        <div class="progress" style="height: 4px;">
+          <div class="progress-bar bg-success" role="progressbar"  [ngStyle]="{'width': cinco_porcent+'%'}" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+      <span class="text-muted ml-3">{{count_five_start}}</span>
+    </div>
+
+    <!-- 4 stars -->
+    <div class="d-flex align-items-center mb-2">
+      <div class="text-nowrap text-muted mr-3">
+        <span class="d-inline-block align-middle">4</span>
+        <i class="cxi-star font-size-sm align-middle ml-1"></i>
+      </div>
+      <div class="w-100">
+        <div class="progress" style="height: 4px;">
+          <div class="progress-bar bg-info" role="progressbar"  [ngStyle]="{'width': cuatro_porcent+'%'}" aria-valuenow="27" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+      <span class="text-muted ml-3">{{count_four_start}}</span>
+    </div>
+
+    <!-- 3 stars -->
+    <div class="d-flex align-items-center mb-2">
+      <div class="text-nowrap text-muted mr-3">
+        <span class="d-inline-block align-middle">3</span>
+        <i class="cxi-star font-size-sm align-middle ml-1"></i>
+      </div>
+      <div class="w-100">
+        <div class="progress" style="height: 4px;">
+          <div class="progress-bar bg-warning" role="progressbar" [ngStyle]="{'width': tres_porcent+'%'}" aria-valuenow="17" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+      <span class="text-muted ml-3">{{count_three_start}}</span>
+    </div>
+
+    <!-- 2 stars -->
+    <div class="d-flex align-items-center mb-2">
+      <div class="text-nowrap text-muted mr-3">
+        <span class="d-inline-block align-middle">2</span>
+        <i class="cxi-star font-size-sm align-middle ml-1"></i>
+      </div>
+      <div class="w-100">
+        <div class="progress" style="height: 4px;">
+          <div class="progress-bar bg-danger" role="progressbar" [ngStyle]="{'width': dos_porcent+'%'}" aria-valuenow="9" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+      <span class="text-muted ml-3">{{count_two_start}}</span>
+    </div>
+
+    <!-- 1 star -->
+    <div class="d-flex align-items-center">
+      <div class="text-nowrap text-muted mr-3">
+        <span class="d-inline-block align-middle">1</span>
+        <i class="cxi-star font-size-sm align-middle ml-1"></i>
+      </div>
+      <div class="w-100">
+        <div class="progress" style="height: 4px;">
+          <div class="progress-bar bg-primary" role="progressbar" [ngStyle]="{'width': uno_porcent+'%'}" aria-valuenow="4" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+      <span class="text-muted ml-3">{{count_one_start}}</span>
+    </div>
+  </div>
+</div>
+
+<!-- Button + sorting -->
+<!-- <div class="d-flex align-items-center justify-content-between mb-4 pb-2 pb-sm-4">
+  <a href="#modal-review" data-toggle="modal" class="btn btn-primary">Leave a review</a>
+  <div class="form-inline">
+    <label for="sort-orders" class="d-none d-sm-block font-weight-bold mr-2 pr-1">Sort by</label>
+    <select id="sort-orders" class="custom-select">
+      <option>Newest</option>
+      <option>Oldest</option>
+      <option>High rating</option>
+      <option>Low rating</option>
+    </select>
+  </div>
+</div> -->
+
+<!-- Review -->
+<ng-container *ngIf="reviews.length >= 1">
+  <div class="mb-4 pb-4 border-bottom" *ngFor="let item of reviews | slice: (page-1)*pageSize : (page-1) * pageSize + pageSize">
+    <div class="row">
+      <div class="col-md-3 col-sm-4 mb-sm-0 mb-3">
+        <h3 class="mb-2 font-size-lg">{{item.cliente.nombres}} {{item.cliente.apellidos}}</h3>
+        <span class="d-block mb-3 font-size-sm text-muted">{{item.createdAt|date}}</span>
+        <div class="mt-n1 star-rating">
+          <i class="sr-star cxi-star-filled" [ngClass]="{'active': item.estrellas >=1}"></i>
+          <i class="sr-star cxi-star-filled" [ngClass]="{'active': item.estrellas >=2}"></i>
+          <i class="sr-star cxi-star-filled" [ngClass]="{'active': item.estrellas >=3}"></i>
+          <i class="sr-star cxi-star-filled" [ngClass]="{'active': item.estrellas >=4}"></i>
+          <i class="sr-star cxi-star-filled" [ngClass]="{'active': item.estrellas >=5}"></i>
+        </div>
+      </div>
+      <div class="col">
+        <p class="mb-3">
+          <a class="mr-1 font-weight-bold text-decoration-none" href="#">@{{item.cliente.email}}</a>
+          <br>
+          {{item.review}}
+        </p>
+   
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-container  *ngIf="reviews.length == 0">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h5>Este producto no tiene reseñas</h5>
+    </div>
+  </div>
+</ng-container>
+            <!-- Pagination: With icons -->
+            <nav class="mt-4 pt-4" aria-label="Reviews pagination">
+              <ul class="pagination justify-content-center mb-0">
+                <li class="page-item d-sm-none">
+                  <span class="page-link page-link-static">1 / 4</span>
+                </li>
+                <li class="page-item active d-none d-sm-block" aria-current="page">
+                  <span class="page-link">1
+                    <span class="sr-only">(current)</span>
+                  </span>
+                </li>
+                <li class="page-item d-none d-sm-block">
+                  <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item d-none d-sm-block">
+                  <a class="page-link" href="#">3</a>
+                </li>
+                <li class="page-item d-none d-sm-block">
+                  <a class="page-link" href="#">4</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="#">
+                    <i class="cxi-arrow-right"></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div class="col-md-4 offset-lg-1">
+  
+            <!-- Product card carousel -->
+            <div class="card card-product">
+              <div class="card-product-img">
+                <div class="cs-controls-onhover">
+                  <a class="cs-carousel-inner">
+                    <div><img class="card-img-top" [src]="url+'obtener_portada/'+producto.portada" alt="Product image"></div>
+                   
+                  </a>
+                </div>
+                <div class="card-product-widgets-top">
+                  <div class="star-rating mb-3 pb-1">
+                    <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_raiting >=1}"></i>
+                        <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_raiting >=2}"></i>
+                        <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_raiting >=3}"></i>
+                        <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_raiting >=4}"></i>
+                        <i class="sr-star cxi-star-filled" [ngClass]="{'active': puntos_raiting >=5}"></i>
+                  </div>
+                </div>
+                <div class="card-product-widgets-bottom">
+                  <a class="btn-wishlist ml-auto" href="#" data-toggle="tooltip" data-placement="left" title="Add to wishlist"></a>
+                </div>
+              </div>
+              <div class="card-body pb-2" style="background-color: white;">
+                <h3 class="card-product-title text-truncate mb-2">
+                  <a href="#" class="nav-link">{{producto.titulo}}</a>
+                </h3>
+                <div class="d-flex align-items-center mb-3">
+                  <span class="h5 d-inline-block text-danger mb-0">$.{{producto.precio}}</span>
+                  <del class="d-inline-block ml-2 pl-1 text-muted">$31.00</del>
+                </div>
+
+                <button type="button" class="btn btn-primary btn-block" style="margin-bottom: 1rem;">
+                  <i class="cxi-cart align-middle mt-n1 mr-2"></i>
+                  Añadir al carrito
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>       
+      </section>
+
+      <section class="py-5" style="background-color: #e5e8ed;">
+        <div class="container my-lg-2 py-2 py-md-4">
+          <div class="d-flex align-items-center justify-content-between pb-sm-1 mb-5">
+            <h2 class="h1 pr-3 mb-0">Productos recomendados</h2>
+            <div class="tns-custom-controls cs-controls-inverse" id="custom-controls-related" tabindex="0">
+              <button type="button" data-controls="prev" tabindex="-1">
+                <i class="cxi-arrow-left"></i>
+              </button>
+              <button type="button" data-controls="next" tabindex="-1">
+                <i class="cxi-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+          <div class="pb-2">
+            <div class="cs-carousel-inner-two" data-carousel-options=''>
+
+              <!-- Item -->
+              <div *ngFor="let item of productos_rec">
+                <div class="card card-product mx-auto">
+                  <div class="card-product-img">
+                    <a [routerLink]="['/productos/',item.slug]" target="_blank" class="card-img-top">
+                      <img [src]="url+'obtener_portada/'+item.portada"  alt="Product image">
+                    </a>
+                    <div class="card-product-widgets-bottom">
+                      <a [routerLink]="['/productos/',item.slug]" target="_blank" class="btn-wishlist ml-auto" data-toggle="tooltip" data-placement="left" title="Add to wishlist"></a>
+                    </div>
+                  </div>
+                  <div class="card-body bg-0 pb-2">
+                    <h3 class="card-product-title text-truncate mb-2">
+                      <a [routerLink]="['/productos/',item.slug]" target="_blank" class="nav-link">{{item.titulo}}</a>
+                    </h3>
+                    <div class="d-flex align-items-center">
+                      <span class="h5 d-inline-block mb-0">${{item.precio}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+     
+      <div class="modal fade" id="modal-sizing" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+          <div class="modal-content border-0">
+            <div class="modal-header border-0 pb-0 px-md-5 px-4 d-block position-relative">
+              <h3 class="modal-title mt-4 mb-0 text-center">Size chart</h3>
+              <button type="button" class="close position-absolute" style="top: 1.5rem; right: 1.5rem;" data-dismiss="modal" aria-label="Close">
+                <i class="cxi-cross" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="modal-body px-md-5 px-4">
+              <ul class="nav nav-tabs justify-content-center">
+                <li class="nav-item">
+                  <a href="#" class="nav-link active">Women</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Men</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">Kids</a>
+                </li>
+              </ul>
+              <div class="table-responsive border rounded">
+                <h4 class="mb-0 py-3 font-size-lg text-center">Footwear</h4>
+                <table class="table table-striped mb-0">
+                  <tbody>
+                    <tr>
+                      <th scope="row" class="font-weight-normal">Europe</th>
+                      <td>35</td>
+                      <td>36</td>
+                      <td>37</td>
+                      <td>38</td>
+                      <td>39</td>
+                      <td>40</td>
+                      <td>41</td>
+                      <td>42</td>
+                    </tr>
+                    <tr>
+                      <th scope="row" class="font-weight-normal">USA</th>
+                      <td>5</td>
+                      <td>6</td>
+                      <td>6.5</td>
+                      <td>7.5</td>
+                      <td>8</td>
+                      <td>9</td>
+                      <td>10</td>
+                      <td>11</td>
+                    </tr>
+                    <tr>
+                      <th scope="row" class="font-weight-normal">United Kingdom</th>
+                      <td>2</td>
+                      <td>3</td>
+                      <td>4</td>
+                      <td>5</td>
+                      <td>6</td>
+                      <td>7</td>
+                      <td>8</td>
+                      <td>9</td>
+                    </tr>
+                    <tr>
+                      <th scope="row" class="font-weight-normal">China</th>
+                      <td>230/83</td>
+                      <td>235/84</td>
+                      <td>240/85</td>
+                      <td>245/86</td>
+                      <td>255/87</td>
+                      <td>260/88</td>
+                      <td>265/89</td>
+                      <td>275/90</td>
+                    </tr>
+                    <tr>
+                      <th scope="row" class="font-weight-normal">Russia</th>
+                      <td>35</td>
+                      <td>36</td>
+                      <td>37</td>
+                      <td>38</td>
+                      <td>39</td>
+                      <td>40</td>
+                      <td>41</td>
+                      <td>42</td>
+                    </tr>
+                    <tr>
+                      <th scope="row" class="font-weight-normal">Italy</th>
+                      <td>35</td>
+                      <td>36</td>
+                      <td>37</td>
+                      <td>38</td>
+                      <td>39</td>
+                      <td>40</td>
+                      <td>41</td>
+                      <td>42</td>
+                    </tr>
+                    <tr>
+                      <th scope="row" class="font-weight-normal">Italy</th>
+                      <td>230</td>
+                      <td>235</td>
+                      <td>240</td>
+                      <td>245</td>
+                      <td>255</td>
+                      <td>260</td>
+                      <td>265</td>
+                      <td>275</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <hr class="my-4 mx-md-n5 mx-n4">
+              <div class="d-flex flex-lg-row flex-column align-items-center justify-content-center mb-4">
+                <h6 class="mb-lg-0">I want to see size equivalence in: </h6>
+                <ul class="nav nav-tabs mb-0 ml-lg-4">
+                  <li class="nav-item">
+                    <a href="#" class="nav-link active">cm</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">Inches</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="table-responsive border rounded mb-4">
+                <h4 class="mb-0 py-3 font-size-lg text-center">Equivalence in centimeters</h4>
+                <table class="table table-striped mb-0">
+                  <tbody>
+                    <tr>
+                      <th scope="row" class="font-weight-normal">Foot length</th>
+                      <td>22.4 cm</td>
+                      <td>23 cm</td>
+                      <td>23.6 cm</td>
+                      <td>24.3 cm</td>
+                      <td>24.9 cm</td>
+                      <td>25.5 cm</td>
+                      <td>26.2 cm</td>
+                      <td>26.8 cm</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</main>
+
+<app-footer></app-footer>

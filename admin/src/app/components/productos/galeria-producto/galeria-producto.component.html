@@ -1,0 +1,161 @@
+
+<app-sidebar></app-sidebar>
+
+<!-- formulario configuraciones-->
+<div class="border-bottom pt-5 mt-2 mb-5">
+  <h1 class="mt-2 mt-md-4 mb-3 pt-5">Galeria</h1>
+  <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+    <p class="text-muted">Este módulo se establece la galeria de los productos.</p>
+
+  </div>
+</div>
+
+
+<div class="card box-shadow-sm">
+    <div class="card-header">
+        <h5 style="margin-bottom: 0px;">Galeria de productos</h5>
+    </div>
+
+    <ng-container *ngIf="producto">
+    <div class="card-body">
+      <div style="max-width: 48rem;">
+
+        <div class="row mb-5">
+          <div class="col-md-4" style="padding-right: 0px">
+            <!-- Square thumbnail -->
+            <img [src]="url+'obtener_portada/'+producto.portada" class="img-thumbnail rounded-0" alt="Square image">
+          </div>
+          <div class="col-md-8" style="padding-left: 0px">
+            <div class="card" style="height: 100% !important;background: #f5eeee">
+              <div class="card-body">
+                <h3 class="card-product-title text-truncate mb-2">
+                  <a class="nav-link mb-3" >{{producto.titulo}}</a>
+                  <p class="text-muted">{{producto.descripcion}}</p>
+                  <div class="d-flex align-items-center">
+                    <span class="h5 d-inline-block mb-0 text-danger">${{producto.precio}}</span>
+                    
+                  </div>
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group row align-items-center">
+          <label class="col-md-3 col-form-label font-weight-medium" for="text-input">Nueva imagen</label>
+          <div class="col-md-9">
+            <!-- Button addon on the right -->
+                <div class="input-group">
+                    <input id="input-img"  class="form-control" (change)="fileChangeEvent($event)"  type="file" >
+                    
+                    <ng-container *ngIf="file != undefined" >
+                      <button class="btn btn-primary" type="button" (click)="subir_imagen()">Subir</button>
+                      <button *ngIf="load_btn" type="button" class="btn btn-primary">
+                          <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+                          Subiendo...
+                        </button>
+                    </ng-container>
+                    <ng-container *ngIf="file == undefined">
+                      <button class="btn btn-primary" type="button" disabled >Subir</button>
+
+                    </ng-container>
+                </div>
+            <!-- Button addon on the right -->
+          </div>
+          
+          <div class="col-md-3">
+
+          </div>
+          <div class="col-md-9">
+            <!-- config -->
+            <div class="table-responsive mt-3">
+              <table class="table table-sm table-bordered" *ngIf="producto.galeria">
+                <thead class="thead-dark">
+                  <tr>
+             
+                    <th>Titulo</th>
+                    <th>Eliminar</th>
+                   
+                  </tr>
+                </thead>
+                <ng-container *ngIf="producto.galeria.length==0" >
+                  <tbody>
+                    <tr>
+                      <td colspan="2" class="tex-center">
+                        <span class="text-muted">No hay imagen disponible</span>
+                      </td>
+                      
+                    </tr>
+                  </tbody>
+                </ng-container>
+
+                <ng-container *ngIf="producto.galeria.length >= 1">
+                  <tbody *ngFor="let item of producto.galeria; let indice = index">
+                    <tr>
+                      <td>
+                        <p>
+                          <img [src]="url+'obtener_portada/'+item.imagen" alt="" style="width: 200px;">
+                          {{item.imagen}}
+                        </p>
+                      </td>
+                      <td><a style="cursor: pointer;" class="text-danger" data-toggle="modal" [attr.data-target]="'#delete-'+item._id">[Eliminar]</a></td>
+                    </tr>
+                    <div class="modal fade" id="delete-{{item._id}}" tabindex="-1" style="display: none;" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Confirmación de eliminación</h4>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span
+                              aria-hidden="true">x</span></button>
+                          </div>
+                          <div class="modal-body">
+                            <p >Desea eliminar esta imagen?</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cancelar</button>
+                            <button >Sí, eliminar</button>
+                            <!-- boton precargador-->
+                            <button *ngIf="load_btn_eliminar" type="button" class="btn btn-secondary" disabled>
+                              <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+                              Eliminando...
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </tbody>
+                </ng-container>
+              </table>
+            </div>
+          </div>
+         
+        </div>
+        
+      </div>
+     
+    </div>
+    <div class="card-footer">
+      <a class="btn btn-warning" [routerLink]="['/panel/productos']" routerLinkActive="router-link-active">Regresar</a>
+    </div>
+    </ng-container>
+
+  <ng-container *ngIf="producto == undefined">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="text-center">No se encontro el registro!!!</h3>
+        <div class="row">
+            <div class="col-3 mx-auto">
+                <img src="assets/img/error.png" alt="" style="width: 100%;">
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button *ngIf="load_btn" class="btn btn-secondary" disabled>
+          <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+          Actualizando...
+      </button>
+      <a [routerLink]="['/panel/productos']" class="btn btn-warning">Regresar</a>
+  </div>
+  </ng-container>
+</div> 

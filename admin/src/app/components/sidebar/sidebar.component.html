@@ -1,0 +1,48 @@
+<header class="navbar navbar-expand navbar-light fixed-top navbar-box-shadow bg-light px-3 px-lg-4" data-scroll-header data-fixed-element>
+    <a class="navbar-brand d-lg-none" href="dev-setup.html">
+      <img src="assets/img/components/logo/logo-dark.svg" alt="Createx" width="130">
+    </a>
+    <button class="navbar-toggler d-block d-lg-none mr-3 ml-auto" type="button" data-toggle="offcanvas" data-target="componentsNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <ul class="navbar-nav ml-auto d-none d-lg-flex align-items-center">
+
+      <li class="nav-item">
+        <a class="nav-link py-0" href="../components/typography.html">
+          <i class="cxi-profile align-middle mt-n1 mr-2"></i>
+          Cuenta
+        </a>
+      </li>
+ 
+    </ul>
+</header>
+<aside class="cs-offcanvas cs-offcanvas-expand bg-dark" id="componentsNav">
+    <div class="cs-offcanvas-cap d-none d-lg-block py-4">
+      <a class="navbar-brand py-2" href="dev-setup.html">
+        <img src="assets/img/components/logo/logo-white.svg" alt="Createx" width="130">
+      </a>
+      <span class="badge badge-warning">Docs</span>
+    </div>
+    <div class="cs-offcanvas-cap d-flex d-lg-none">
+      <div class="d-flex align-items-center mt-1">
+        <h5 class="text-light mb-0 mr-3">Menu</h5>
+        <span class="badge badge-warning">Docs</span>
+      </div>
+      <button class="close text-light" type="button" data-dismiss="offcanvas" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="d-flex d-lg-none align-items-center py-4 px-3 border-bottom border-light">
+      <a class="btn btn-primary btn-block mr-3 px-4" href="index.html"><i class="cxi-eye mt-n1 mr-2"></i>Preview</a>
+      <a class="btn btn-success btn-block mt-0 px-4" href="../components/typography.html"><i class="cxi-layouts mt-n1 mr-2"></i>Components</a>
+    </div>
+    <div class="cs-offcanvas-body px-0 pt-4 pb-grid-gutter" data-simplebar data-simplebar-inverse>
+      <h6 class="font-size-lg text-light px-4 mt-2 mb-3">Contents</h6>
+      <hr class="hr-gradient hr-light mb-2 opacity-25">
+      <nav class="nav nav-light">
+        <a class="nav-link px-4" [routerLink]="['/inicio']" routerLinkActive="active">Inicio</a>
+        <a class="nav-link px-4" [routerLink]="['/panel/clientes']" routerLinkActive="active">Clientes</a>
+        <a class="nav-link px-4" [routerLink]="['/panel/productos']" >Productos</a>
+      </nav>
+    </div>
+  </aside>
