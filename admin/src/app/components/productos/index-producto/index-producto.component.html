@@ -94,8 +94,8 @@
                               </div>
                               <div class="modal-footer">
                                 <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cancelar</button>
-                                <button  class="btn btn-primary btn-shadow btn-sm"  type="button">Si, eliminar</button>
-                                <button  type="button" class="btn btn-secondary" disabled>
+                                <button  *ngIf="!load_btn" class="btn btn-primary btn-shadow btn-sm"  (click)="eliminar(item._id)" type="button">Si, eliminar</button>
+                                <button  *ngIf="load_btn" type="button" class="btn btn-secondary" disabled>
                                   <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
                                   Eliminando...
                                 </button>

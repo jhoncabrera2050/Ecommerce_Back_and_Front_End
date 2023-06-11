@@ -72,5 +72,27 @@ export class IndexProductoComponent implements OnInit {
       });
     }
   }
-
+  eliminar(id:any){
+    this.load_btn = true;
+    this._productoService.eliminar_producto_admin(id,this.token).subscribe(
+       response=>{
+        iziToast.show({
+          title :'SUCCESS',
+          titleColor : '#1DC74C',
+          color : '#FFF',
+          class : 'text-success',
+          position : 'topRight',
+          message:'Se elimino correctamente el cliente'
+        });
+        $('#delete-'+id).modal('hide');
+        $('.modal-backdrop').removeClass('show');
+        this.load_btn = false;
+        this.init_data();
+       },
+       error=>{
+        console.log(error);
+        this.load_btn = false;
+       }
+    )
+  }
 }

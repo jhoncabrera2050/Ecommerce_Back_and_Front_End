@@ -113,6 +113,80 @@ const obtener_producto_admin = async function(req,res){
     }
 }
 
+const actualizar_producto_admin = async function(req,res){
+    if(req.user){
+        if(req.user.role == 'admin'){
+            let id = req.params['id'];
+            let data = req.body;
+
+            console.log(req.files);
+
+            if(req.files){
+                var img_path = req.files.portada.path;
+                var name = img_path.split('\\');
+                var portada_name = name[2];
+
+                let reg = await Producto.findByIdAndUpdate({_id:id},{
+                    titulo: data.titulo,
+                    stock: data.stock,
+                    precio: data.precio,
+                    categoria: data.categoria,
+                    descripcion: data.descripcion,
+                    contenido: data.contenido,
+                    portada: portada_name 
+                });
+
+                fs.stat('./uploads/productos/'+reg.portada, function(err){
+                   if(!err){
+                    fs.unlink('./uploads/productos/'+reg.portada, (err)=>{
+                        if(err) throw err;
+                    })
+                   }
+                })
+
+                res.status(200).send({data:reg});
+
+
+
+            }else{
+                let reg = await Producto.findByIdAndUpdate({_id:id},{
+                    titulo: data.titulo,
+                    stock: data.stock,
+                    precio: data.precio,
+                    categoria: data.categoria,
+                    descripcion: data.descripcion,
+                    contenido: data.contenido,
+                });
+                res.status(200).send({data:reg});
+
+            }
+
+
+           
+            // res.status(200).send({data:reg});
+        }else{
+            res.status(500).send({message: 'NoAcces'})
+        }
+    }else{
+        res.status(500).send({message: 'NoAcces'})
+    }
+}
+
+const eliminar_producto_admin = async function(req,res){
+    if(req.user){
+        if(req.user.role == 'admin'){
+            var id = req.params['id']
+            let reg = await Producto.findByIdAndRemove({_id:id});
+            res.status(200).send({data:reg});
+        }else{
+            res.status(500).send({message : ' No access'})
+        }
+    }else{
+        res.status(500).send({message : ' No access'})
+    }
+}
+
+
 module.exports = {
     registro_producto_admin,
     listar_productos_admin,
@@ -120,5 +194,7 @@ module.exports = {
     listar_productos_publico,
     obtener_productos_slug_publico,
     agregar_imagen_galeria_admin,
-    obtener_producto_admin
+    obtener_producto_admin,
+    actualizar_producto_admin,
+    eliminar_producto_admin
 }

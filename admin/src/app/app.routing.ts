@@ -10,6 +10,7 @@ import { EditClienteComponent } from "./components/clientes/edit-cliente/edit-cl
 import { CreateProductoComponent } from "./components/productos/create-producto/create-producto.component";
 import { IndexProductoComponent } from "./components/productos/index-producto/index-producto.component";
 import { GaleriaProductoComponent } from "./components/productos/galeria-producto/galeria-producto.component";
+import { UpdateProductoComponent } from "./components/productos/update-producto/update-producto.component";
 
 const appRoutes: Routes = [
     {path : '', redirectTo:'inicio', pathMatch : 'full'},
@@ -20,6 +21,7 @@ const appRoutes: Routes = [
         {path: 'clientes/:id', component: EditClienteComponent, canActivate:[AdminGuard]},
         {path:'producto/registro', component:CreateProductoComponent,canActivate:[AdminGuard]},
         { path: 'productos', component:IndexProductoComponent,canActivate:[AdminGuard] },
+        { path: 'productos/:id', component:UpdateProductoComponent,canActivate:[AdminGuard] },
         {path:'productos/galeria/:id', component:GaleriaProductoComponent, canActivate:[AdminGuard]},
     ]},
     {path: 'login', component:LoginComponent}
