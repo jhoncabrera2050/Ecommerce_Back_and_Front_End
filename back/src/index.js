@@ -6,6 +6,7 @@ const cliente_route = require('../routes/cliente');
 const admin_route = require('../routes/admin');
 const producto_route = require('../routes/producto');
 const db = require('./conection');
+var carrito_route = require('../routes/carrito');
 
 
 app.use(express.json());
@@ -17,6 +18,9 @@ app.use(cors()); // Agregar el middleware de CORS
 app.use('/api', cliente_route);
 app.use('/api', admin_route);
 app.use('/api', producto_route);
+app.use('/api', carrito_route);
+
+
 
 app.listen(3000, () => {
   console.log('Servidor en el puerto 3000');

@@ -51,10 +51,16 @@
               </ng-container>
               
             <li class="divider-vertical mb-0 d-lg-block d-none"></li>
-            <li class="nav-item align-self-center mb-0">
+            <li class="nav-item align-self-center mb-0" *ngIf="user_lc != undefined">
               <a  style="cursor: pointer;" class="nav-tool pr-lg-0" (click)="op_modalcart()">
                 <i class="cxi-cart nav-tool-icon"></i>
                 <span class="badge badge-success align-middle mt-n1 ml-2 px-2 py-1 font-size-xs">4</span>
+              </a>
+            </li>
+            <li class="nav-item align-self-center mb-0" *ngIf="user_lc == undefined">
+              <a  style="cursor: pointer;" class="nav-tool pr-lg-0" [routerLink]="['/login']" >
+                <i class="cxi-cart nav-tool-icon"></i>
+                <span class="badge badge-success align-middle mt-n1 ml-2 px-2 py-1 font-size-xs">0</span>
               </a>
             </li>
             <li class="divider-vertical mb-0 d-lg-none d-block"></li>
