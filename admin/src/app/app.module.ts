@@ -19,6 +19,7 @@ import { NgxTinymceModule } from 'ngx-tinymce';
 import { IndexProductoComponent } from './components/productos/index-producto/index-producto.component';
 import { GaleriaProductoComponent } from './components/productos/galeria-producto/galeria-producto.component';
 import { UpdateProductoComponent } from './components/productos/update-producto/update-producto.component';
+import { ConfigComponent } from './components/config/config.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { UpdateProductoComponent } from './components/productos/update-producto/
     IndexProductoComponent,
     GaleriaProductoComponent,
     UpdateProductoComponent,
+    ConfigComponent,
     
   ],
   imports: [

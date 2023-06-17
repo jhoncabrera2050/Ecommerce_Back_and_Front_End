@@ -54,7 +54,7 @@
             <li class="nav-item align-self-center mb-0" *ngIf="user_lc != undefined">
               <a  style="cursor: pointer;" class="nav-tool pr-lg-0" (click)="op_modalcart()">
                 <i class="cxi-cart nav-tool-icon"></i>
-                <span class="badge badge-success align-middle mt-n1 ml-2 px-2 py-1 font-size-xs">4</span>
+                <span class="badge badge-success align-middle mt-n1 ml-2 px-2 py-1 font-size-xs">{{carrito_arr.length}}</span>
               </a>
             </li>
             <li class="nav-item align-self-center mb-0" *ngIf="user_lc == undefined">
@@ -89,11 +89,13 @@
             </li>
             <li class="nav-item dropdown">
               <a [routerLink]="['/productos']" routerLinkActive="active" class="nav-link dropdown-toggle" data-toggle="dropdown">Tienda</a>
-              <!-- <ul class="dropdown-menu">
-                <li><a href="shop-catalog.html" class="dropdown-item">Catalog with Filters</a></li>
-                <li><a href="shop-single.html" class="dropdown-item">Single Product</a></li>
-                <li><a href="checkout.html" class="dropdown-item">Checkout</a></li>
-              </ul> -->
+              <ul class="dropdown-menu">
+                <!-- <li><a href="shop-catalog.html" class="dropdown-item">Catalog with Filters</a></li>
+                <li><a href="shop-single.html" class="dropdown-item">Single Product</a></li> -->
+                <li *ngFor="let item of config_global.categorias">
+                  <a [routerLink]="['/productos/categoria/',item.titulo.toLowerCase()]" routerLinkActive="router-link-active"  class="dropdown-item"><i class="{{item.icono}}"></i> &nbsp; {{item.titulo}}</a>
+                </li>
+              </ul>
             </li>
             <li class="nav-item dropdown mega-dropdown">
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Megamenu</a>
@@ -190,116 +192,33 @@
     <!-- Body -->
     <div class="cs-offcanvas-body">
       <!-- Item -->
-      <div class="media p-4 border-bottom mx-n4">
-        <a href="shop-single.html" style="min-width: 80px;">
-          <img src="../../assets/img/ecommerce/cart/01.png" width="80" alt="Product thumb">
+      <div class="media p-4 border-bottom mx-n4" *ngFor="let item of carrito_arr">
+        <a [routerLink]="['/productos/',item.producto.slug]"   target="_blank" style="min-width: 80px;">
+          <img [src]="url +'obtener_portada/'+item.producto.portada" width="80" alt="Product thumb">
         </a>
         <div class="media-body pl-3">
           <div class="d-flex justify-content-between">
             <div class="pr-2">
               <h3 class="font-size-sm mb-3">
-                <a href="shop-single.html" class="nav-link font-weight-bold">Basic hooded sweatshirt in pink</a>
+                <a [routerLink]="['/productos/',item.producto.slug]" target="_blank" class="nav-link font-weight-bold">{{item.producto.titulo}}</a>
               </h3>
               <ul class="list-unstyled font-size-xs mt-n2 mb-2">
-                <li class="mb-0"><span class="text-muted">Color:</span> Pink</li>
-                <li class="mb-0"><span class="text-muted">Size:</span> S</li>
+                <!-- <li class="mb-0"><span class="text-muted">{{item.producto.titulo_variedad}}:</span> {{item.variedad}}</li> -->
               </ul>
               <div class="d-flex align-items-center">
-                <input type="number" class="form-control form-control-sm bg-light mr-3" style="width: 4.5rem;" value="1">
-                <div class="text-nowrap"><strong class="text-danger">$15.00</strong> <s class="font-size-xs text-muted">$31.00</s></div>
+                <input type="number" class="form-control form-control-sm bg-light mr-3" style="width: 4.5rem;" value="{{item.cantidad}}">
+                <div class="text-nowrap">
+                  <!-- <strong class="text-danger">{{item.producto.precio}}</strong>  -->
+                  <span style="font-size: 1.2rem !important;" class="font-size-xs text-muted">${{item.producto.precio}}</span>
+                </div>
               </div>
               <button class="btn btn-link btn-sm text-decoration-none px-0 pb-0">
-                Move to
+                Mover a
                 <i class="cxi-heart ml-1"></i>
               </button>
             </div>
             <div class="nav-muted mr-n2">
-              <a href="#" class="nav-link px-2 mt-n2" data-toggle="tooltip" title="" data-original-title="Remove"><i class="cxi-delete"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Item -->
-      <div class="media p-4 border-bottom mx-n4">
-        <a href="shop-single.html" style="min-width: 80px;">
-          <img src="../../assets/img/ecommerce/cart/02.png" width="80" alt="Product thumb">
-        </a>
-        <div class="media-body pl-3">
-          <div class="d-flex justify-content-between">
-            <div class="pr-2">
-              <h3 class="font-size-sm mb-3">
-                <a href="shop-single.html" class="nav-link font-weight-bold">Black and white sport cap</a>
-              </h3>
-              <div class="d-flex align-items-center">
-                <input type="number" class="form-control form-control-sm bg-light mr-3" style="width: 4.5rem;" value="1">
-                <div class="text-nowrap"><strong>$18.15</strong></div>
-              </div>
-              <button class="btn btn-link btn-sm text-decoration-none px-0 pb-0">
-                Move to
-                <i class="cxi-heart ml-1"></i>
-              </button>
-            </div>
-            <div class="nav-muted mr-n2">
-              <a href="#" class="nav-link px-2 mt-n2" data-toggle="tooltip" title="" data-original-title="Remove"><i class="cxi-delete"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Item -->
-      <div class="media p-4 border-bottom mx-n4">
-        <a href="shop-single.html" style="min-width: 80px;">
-          <img src="../../assets/img/ecommerce/cart/03.png" width="80" alt="Product thumb">
-        </a>
-        <div class="media-body pl-3">
-          <div class="d-flex justify-content-between">
-            <div class="pr-2">
-              <h3 class="font-size-sm mb-3">
-                <a href="shop-single.html" class="nav-link font-weight-bold">Mid-rise slim cropped fit jeans</a>
-              </h3>
-              <ul class="list-unstyled font-size-xs mt-n2 mb-2">
-                <li class="mb-0"><span class="text-muted">Size:</span> M</li>
-              </ul>
-              <div class="d-flex align-items-center">
-                <input type="number" class="form-control form-control-sm bg-light mr-3" style="width: 4.5rem;" value="1">
-                <div class="text-nowrap"><strong>$76.00</strong></div>
-              </div>
-              <button class="btn btn-link btn-sm text-decoration-none px-0 pb-0">
-                Move to
-                <i class="cxi-heart ml-1"></i>
-              </button>
-            </div>
-            <div class="nav-muted mr-n2">
-              <a href="#" class="nav-link px-2 mt-n2" data-toggle="tooltip" title="" data-original-title="Remove"><i class="cxi-delete"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Item -->
-      <div class="media p-4 mx-n4">
-        <a href="shop-single.html" style="min-width: 80px;">
-          <img src="../../assets/img/ecommerce/cart/04.png" width="80" alt="Product thumb">
-        </a>
-        <div class="media-body pl-3">
-          <div class="d-flex justify-content-between">
-            <div class="pr-2">
-              <h3 class="font-size-sm mb-3">
-                <a href="shop-single.html" class="nav-link font-weight-bold">Men fashion gray shoes</a>
-              </h3>
-              <ul class="list-unstyled font-size-xs mt-n2 mb-2">
-                <li class="mb-0"><span class="text-muted">Color:</span> Gray</li>
-                <li class="mb-0"><span class="text-muted">Size:</span> 10.5</li>
-              </ul>
-              <div class="d-flex align-items-center">
-                <input type="number" class="form-control form-control-sm bg-light mr-3" style="width: 4.5rem;" value="1">
-                <div class="text-nowrap"><strong>$84.00</strong></div>
-              </div>
-              <button class="btn btn-link btn-sm text-decoration-none px-0 pb-0">
-                Move to
-                <i class="cxi-heart ml-1"></i>
-              </button>
-            </div>
-            <div class="nav-muted mr-n2">
-              <a href="#" class="nav-link px-2 mt-n2" data-toggle="tooltip" title="" data-original-title="Remove"><i class="cxi-delete"></i></a>
+              <a  class="nav-link px-2 mt-n2"  title="Quitar" style="cursor: pointer;" (click)="eliminar_item(item._id)"><i class="cxi-delete"></i></a>
             </div>
           </div>
         </div>
@@ -310,7 +229,7 @@
     <div class="cs-offcanvas-cap flex-column border-top">
       <div class="d-flex align-items-center justify-content-between mb-3 pb-1">
         <span class="text-muted mr-2">Subtotal:</span>
-        <span class="h5 mb-0">$198.65</span>
+        <span class="h5 mb-0">${{subtotal}}</span>
       </div>
       <a [routerLink]="['/carrito']" class="btn btn-primary btn-lg btn-block">
         <i class="cxi-credit-card font-size-lg mt-n1 mr-1"></i>

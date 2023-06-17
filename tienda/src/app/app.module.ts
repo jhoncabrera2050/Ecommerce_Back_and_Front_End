@@ -14,6 +14,12 @@ import { SiderbarComponent } from './components/usuario/siderbar/siderbar.compon
 import { IndexProductoComponent } from './components/productos/index-producto/index-producto.component';
 import { ShowProductoComponent } from './components/productos/show-producto/show-producto.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSliderModule } from '@angular/material/slider';
+import { NgxPaginationModule } from 'ngx-pagination';
+
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { DescuentoPipe } from './pipes/descuento.pipe';
 
 @NgModule({
   declarations: [
@@ -27,13 +33,19 @@ import { CarritoComponent } from './components/carrito/carrito.component';
     IndexProductoComponent,
     ShowProductoComponent,
     CarritoComponent,
+    DescuentoPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    routing
+    routing,
+    BrowserAnimationsModule,
+    MatSliderModule,
+    NgxPaginationModule,
+    MatPaginatorModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,7 +6,7 @@
       
     </div>
   </div>
-      <form #registroForm="ngForm" (ngSubmit)="registro(registroForm)">
+       <form #registroForm="ngForm" (ngSubmit)="registro(registroForm)"> 
 
         <div class="card box-shadow-sm">
           <div class="card-header">
@@ -32,9 +32,8 @@
                             <label for="">Categoría</label>
                             <select class="form-control custom-select" name="categoria" [(ngModel)]="producto.categoria"  id="select-input">
                               <option value="" selected disabled>Seleccionar</option>
-                              <option value="Categoria 1">Categoria 1</option>
-                              <option value="Categoria 2">Categoria 2</option>
-                              <option value="Categoria 3">Categoria 3</option>
+                              <option value="{{item.titulo}}"  *ngFor="let item of config_global.categorias" >{{item.titulo}}</option>
+                             
                             </select>
                         </div>
 

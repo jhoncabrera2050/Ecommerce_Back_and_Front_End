@@ -103,6 +103,11 @@
                   </div>
                 </div>
               </div>-->
+
+
+
+
+              
               <div class="col-sm-8 order-sm-1 order-2">
                 <div class="form-group">
                   <label for="size">{{producto.titulo_variedad}}</label>
@@ -129,10 +134,12 @@
                 </div>
               </div>
               <div class="col-lg-6 order-lg-4 order-4">
-                <button *ngIf="!btn_cart" class="btn btn-block btn-primary" >
+                <button *ngIf="!btn_cart" class="btn btn-block btn-primary" (click)="agregar_producto()">
                   <i class="cxi-cart mr-2"></i>
                   Agregar al carrito
                 </button>
+
+                
                 <button *ngIf="btn_cart" type="button" class="btn btn-primary" disabled>
                   <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
                   Agregando...

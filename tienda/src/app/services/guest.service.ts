@@ -17,4 +17,9 @@ export class GuestService {
     let headers = new HttpHeaders().set('Content-Type','application/json');
     return this._http.get(this.url + 'obtener_productos_slug_publico/'+slug,{headers: headers});
   }
+
+  obtener_descuento_activo():Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+    return this._http.get(this.url+'obtener_descuento_activo',{headers:headers});
+  }
 }

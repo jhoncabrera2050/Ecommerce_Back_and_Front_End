@@ -14,6 +14,8 @@ const appRoutes: Routes = [
     {path: 'cuenta/perfil', component:PerfilComponent,canActivate: [AuthGuard]},
     {path: 'carrito', component: CarritoComponent, canActivate:[AuthGuard] },
     {path: 'productos', component:IndexProductoComponent},
+    {path: 'productos/categoria/:categoria', component: IndexProductoComponent},
+
     {path:'productos/:slug', component:ShowProductoComponent},
     
 ];

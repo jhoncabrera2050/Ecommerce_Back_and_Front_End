@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductoService } from 'src/app/service/producto.service';
 import { global } from 'src/app/service/global';
+import { AdminService } from 'src/app/service/admin.service';
 declare var iziToast:any;
 declare var jQuery:any;
 declare var $:any;
@@ -23,17 +24,27 @@ export class UpdateProductoComponent implements OnInit {
   public file : any = undefined;
   public token;
   public url;
+  public config_global : any = {}
 
   constructor(
   private _router : Router,
   private _route : ActivatedRoute,
-  private _productoService:ProductoService
+  private _productoService:ProductoService,
+  private _adminService : AdminService
   ){
     this.config = {
       height: 500
     }
     this.token = localStorage.getItem('token');
     this.url = global.url;
+    this._adminService.obtener_config_publico().subscribe(
+      response=>{
+        this.config_global = response.data;
+        console.log(this.config_global);
+    
+        
+      }
+    )
   }
   ngOnInit(): void {
     this._route.params.subscribe(

@@ -9,7 +9,7 @@ const registro_producto_admin = async function(req,res){
             let data = req.body;
             var img_path = req.files.portada.path;
             var name = img_path.split('\\');
-            var portada_name = name[2];
+            var portada_name = path.basename(img_path);
             data.slug = data.titulo.toLowerCase().replace(/ /g,'-').replace(/[^\w-]+/g, '')
             data.portada = portada_name;
             let reg = await Producto.create(data);
@@ -38,12 +38,14 @@ const listar_productos_admin = async function(req,res){
 
 const obtener_portada = async function(req,res){
     var img = req.params['img'];
-    fs.stat('./uploads/productos/'+img, function(err){
+
+
+    fs.stat('../uploads/productos/'+img, function(err){
         if(!err){
-            let path_img = './uploads/productos/'+img;
+            let path_img = '../uploads/productos/'+img;
             res.status(200).sendFile(path.resolve(path_img));
         }else{
-            let path_img = './uploads/default.jpg';
+            let path_img = '../uploads/default.jpg';
             res.status(200).sendFile(path.resolve(path_img));
         }
     })
