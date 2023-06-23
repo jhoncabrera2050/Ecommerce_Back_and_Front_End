@@ -22,11 +22,11 @@
                         </div>
                         <div class="col-lg-6 form-group">	
                             <label for="">Fecha de Inicio %</label>
-                            <input type="date" class="form-control" name="descuento" [(ngModel)]="descuento.fecha_inicio" placeholder="Porcentaje del descuento" required>
+                            <input type="date" class="form-control" name="fecha_inicio" [(ngModel)]="descuento.fecha_inicio" placeholder="Porcentaje del descuento" required>
                         </div>
                         <div class="col-lg-6 form-group">	
                             <label for="">Fecha de fin %</label>
-                            <input type="date" class="form-control" name="descuento" [(ngModel)]="descuento.fecha_fin" placeholder="Porcentaje del descuento" required>
+                            <input type="date" class="form-control" name="fecha_fin" [(ngModel)]="descuento.fecha_fin" placeholder="Porcentaje del descuento" required>
                         </div>
                         <div class="col-lg-6 form-group">	
                             <label for="">Descuento %</label>
@@ -56,7 +56,7 @@
                 <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
                 Creando...
             </button>
-            <a class="btn btn-warning" [routerLink]="['/panel/productos']" routerLinkActive="router-link-active" >Regresar</a>
+            <a class="btn btn-warning" [routerLink]="['/panel/descuentos']" routerLinkActive="router-link-active" >Regresar</a>
         </div>
     </div>   
   </form>

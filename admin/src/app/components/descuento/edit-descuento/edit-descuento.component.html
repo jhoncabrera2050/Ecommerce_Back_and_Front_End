@@ -1,1 +1,62 @@
-<p>edit-descuento works!</p>
+<app-sidebar></app-sidebar>
+<div class="border-bottom pt-5 mt-2 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Descuentos</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+      <p class="text-muted">Este módulo lista todos los descuentos de la tienda.</p>
+      
+    </div>
+  </div>
+       <form #actualizarForm="ngForm" (ngSubmit)="actualizar(actualizarForm)"> 
+
+        <div class="card box-shadow-sm">
+          <div class="card-header">
+              <h5 style="margin-bottom: 0px;">Registro de producto</h5>
+          </div>
+          <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-8">
+                      <div class="row">
+                        <div class="col-lg-12 form-group">	
+                            <label for="">Titulo del descuento</label>
+                            <input type="text" class="form-control" name="titulo" [(ngModel)]="descuento.titulo" placeholder="Titulo del descuento" required>
+                        </div>
+                        <div class="col-lg-6 form-group">	
+                            <label for="">Fecha de Inicio %</label>
+                            <input type="date" class="form-control" name="fecha_incio" [(ngModel)]="descuento.fecha_inicio" placeholder="Porcentaje del descuento" required>
+                        </div>
+                        <div class="col-lg-6 form-group">	
+                            <label for="">Fecha de fin %</label>
+                            <input type="date" class="form-control" name="fecha_fin" [(ngModel)]="descuento.fecha_fin" placeholder="Porcentaje del descuento" required>
+                        </div>
+                        <div class="col-lg-6 form-group">	
+                            <label for="">Descuento %</label>
+                            <input type="number" class="form-control" name="descuento" [(ngModel)]="descuento.descuento" placeholder="Porcentaje del descuento" required>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="row">
+                      <div class="col-lg-12 form-group">	
+                          <label for="">Banner</label>
+                          <div class="custom-file">
+                            <input class="custom-file-input" type="file" id="file-input" (change)="fileChangeEvent($event)"> 
+                            <label class="custom-file-label" id="input-portada" style="white-space:nowrap;overflow:hidden;" for="file-input">Seleccionar imagen</label>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                        <img  [src]="imgSelect" class="img-thumbnail" alt="Rounded image">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+          </div>
+          <div class="card-footer">
+            <button *ngIf="!load_btn" class="btn btn-primary mr-3" type="submit">Actualizar descuento</button>
+            <button *ngIf="load_btn" type="button" class="btn btn-secondary" disabled>
+                <span class="spinner-grow spinner-grow-sm mr-2" role="status" aria-hidden="true"></span>
+                Actualizando...
+            </button>
+            <a class="btn btn-warning" [routerLink]="['/panel/descuentos']" routerLinkActive="router-link-active" >Regresar</a>
+        </div>
+    </div>   
+  </form>

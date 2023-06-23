@@ -107,7 +107,12 @@ export class IndexProductoComponent implements OnInit {
   maxValue=80;
 
   ngOnInit(): void {
-    
+    this._guestService.obtener_descuento_activo().subscribe(
+      response=>{
+        this.descuento_activo = response.data[0];
+        console.log(this.descuento_activo);
+      }
+    )
   }
  
   buscar_categorias(){

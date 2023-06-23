@@ -166,6 +166,8 @@ const obtener_descuento_activo = async function(req,res){
 
 }
 
+
+
 module.exports = {
     registro_descuento_admin,
     listar_descuentos_admin,
