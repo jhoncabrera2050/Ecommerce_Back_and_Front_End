@@ -6,6 +6,7 @@ const cliente_route = require('../routes/cliente');
 const admin_route = require('../routes/admin');
 const producto_route = require('../routes/producto');
 const config_route = require('../routes/config');
+const descuento_route = require('../routes/descuento');
 const db = require('./conection');
 var carrito_route = require('../routes/carrito');
 
@@ -35,6 +36,7 @@ app.use('/api', admin_route);
 app.use('/api', producto_route);
 app.use('/api', carrito_route);
 app.use('/api', config_route);
+app.use('/api', descuento_route);
 
 
 

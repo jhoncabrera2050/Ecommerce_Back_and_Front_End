@@ -20,6 +20,9 @@ import { IndexProductoComponent } from './components/productos/index-producto/in
 import { GaleriaProductoComponent } from './components/productos/galeria-producto/galeria-producto.component';
 import { UpdateProductoComponent } from './components/productos/update-producto/update-producto.component';
 import { ConfigComponent } from './components/config/config.component';
+import { CreateDescuentoComponent } from './components/descuento/create-descuento/create-descuento.component';
+import { EditDescuentoComponent } from './components/descuento/edit-descuento/edit-descuento.component';
+import { IndexDescuentoComponent } from './components/descuento/index-descuento/index-descuento.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +38,9 @@ import { ConfigComponent } from './components/config/config.component';
     GaleriaProductoComponent,
     UpdateProductoComponent,
     ConfigComponent,
+    CreateDescuentoComponent,
+    EditDescuentoComponent,
+    IndexDescuentoComponent,
     
   ],
   imports: [

@@ -82,7 +82,7 @@ export class ConfigComponent implements OnInit{
 
       console.log(data);
 
-      this._adminService.actualiza_config_admin("648917e4d4b516c726f934f3.",data,this.token).subscribe(
+      this._adminService.actualiza_config_admin("64911ea6a72c1797b7ea926c",data,this.token).subscribe(
         response=>{
 
           console.log(response); 
