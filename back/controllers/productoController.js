@@ -188,6 +188,13 @@ const eliminar_producto_admin = async function(req,res){
     }
 }
 
+const listar_productos_nuevos_publico = async function (req, res) {
+
+    let reg = await Producto.find().sort({ createdAt: -1 }).limit(8);
+    res.status(200).send({ data: reg });
+
+}
+
 
 module.exports = {
     registro_producto_admin,
@@ -198,5 +205,6 @@ module.exports = {
     agregar_imagen_galeria_admin,
     obtener_producto_admin,
     actualizar_producto_admin,
-    eliminar_producto_admin
+    eliminar_producto_admin,
+    listar_productos_nuevos_publico
 }

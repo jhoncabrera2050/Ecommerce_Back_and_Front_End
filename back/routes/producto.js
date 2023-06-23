@@ -20,4 +20,5 @@ api.get('/obtener_producto_admin/:id',auth.auth,productoController.obtener_produ
 api.put('/agregar_imagen_galeria_admin/:id',[auth.auth,path],productoController.agregar_imagen_galeria_admin);
 api.put('/actualizar_producto_admin/:id',[auth.auth,path], productoController.actualizar_producto_admin);
 api.delete('/eliminar_producto_admin/:id', auth.auth, productoController.eliminar_producto_admin);
+api.get('/listar_productos_nuevos_publico', productoController.listar_productos_nuevos_publico);
 module.exports = api;

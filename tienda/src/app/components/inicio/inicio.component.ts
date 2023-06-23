@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {GuestService} from 'src/app/services/guest.service'
+import {global} from 'src/app/services/global';
 declare var tns:any;
 @Component({
   selector: 'app-inicio',
@@ -6,11 +8,27 @@ declare var tns:any;
   styleUrls: ['./inicio.component.css']
 })
 export class InicioComponent implements OnInit {
-  constructor(){
-
+  public descuento_activo : any = undefined;
+  public url:any;
+  public new_productos : Array<any> = [];
+  constructor(
+    private _guestService:GuestService
+  ){
+    this.url = global.url
   }
 
   ngOnInit(): void {
+    this._guestService.obtener_descuento_activo().subscribe(
+      response=>{
+        this.descuento_activo = response.data[0];
+        console.log(this.descuento_activo);
+      }
+    )
+    this._guestService.listar_productos_nuevos_publico().subscribe(
+      response=>{
+        this.new_productos = response.data;
+      }
+    )
     setTimeout(()=>{
       tns({
         container: '.cs-carousel-inner',
