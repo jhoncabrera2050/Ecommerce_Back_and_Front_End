@@ -80,4 +80,19 @@ export class ClienteService {
     let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
     return this._http.delete(this.url+'eliminar_carrito_cliente/'+id,{headers:headers});
   }
+
+  registro_direccion_cliente(data:any,token:any):Observable<any>{
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
+    return this._http.post(this.url +'registro_direccion_cliente/',data,{headers:headers});
+  }
+
+  obtener_direccion_todos_cliente(id:any,token:any):Observable<any>{
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
+    return this._http.get(this.url+'obtener_direccion_todos_cliente/'+id,{headers:headers});
+  }
+
+  cambiar_direccion_principal_cliente(id:any,cliente:any,token:any):Observable<any>{
+    let headers = new HttpHeaders({'Content-Type':'application/json','Authorization':token});
+    return this._http.put(this.url+'cambiar_direccion_principal_cliente/'+id+'/'+cliente,{data:true},{headers:headers});
+  }
 }

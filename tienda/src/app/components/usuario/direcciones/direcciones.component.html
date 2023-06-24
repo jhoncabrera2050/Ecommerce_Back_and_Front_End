@@ -1,0 +1,171 @@
+<app-nav></app-nav>
+
+<main  class="cs-page-wrapper">
+    <nav class="bg-secondary mb-3" aria-label="breadcrumb">
+        <div class="container">
+          <ol class="breadcrumb breadcrumb-alt mb-0">
+            <li class="breadcrumb-item">
+              <a [routerLink]="['/']"><i class="cxi-home"></i></a>
+            </li>
+      
+            <li class="breadcrumb-item active" aria-current="page">Mis direcciones</li>
+          </ol>
+        </div>
+    </nav>
+
+    <section class="container pt-3 pt-lg-4 pb-5 pb-lg-6">
+        <div class="row pb-2 pb-lg-0">
+
+          <!-- Account menu (sticky sidebar) -->
+          <aside class="col-xl-3 col-lg-4 pb-3 mb-4 mb-lg-0">
+            <app-siderbar></app-siderbar>
+          </aside>
+          
+
+          <!-- Content -->
+          <div class="col-lg-8 ml-auto">
+            <div class="d-flex align-items-center justify-content-between mb-4 pb-1 pb-sm-3">
+              <h1 class="h2 mb-0">Nueva Direccion</h1>
+              
+            </div>
+            <form class="mb-5" #registroForm="ngForm" (ngSubmit)="registrar(registroForm)">
+                <div class="row mb-3">
+                    <div class="col-sm-6 form-group">
+                        <label for="ac-fn">Nombres</label>
+                        <input type="text" required class="form-control form-control-lg" name="destinatario" [(ngModel)]="direccion.destinatario" placeholder="Nombres completos del destinatario">
+                      </div>
+                    <div class="col-sm-6 form-group">
+                        <label for="ac-fn">DNI</label>
+                        <input type="text" required class="form-control form-control-lg" name="dni" [(ngModel)]="direccion.dni" placeholder="DNI">
+                      </div>
+                    <div class="col-sm-6 form-group">
+                        <label for="ac-fn">ZIP</label>
+                        <input type="text" required class="form-control form-control-lg" name="zip" [(ngModel)]="direccion.zip" placeholder="Código postal">
+                      </div>
+                    <div class="col-sm-6 form-group">
+                        <label for="ac-fn">Telefono</label>
+                        <input type="text" required class="form-control form-control-lg" name="telefono" [(ngModel)]="direccion.telefono" placeholder="Telefono">
+                      </div>
+                    <div class="col-sm-12 form-group">
+                        <label for="ac-fn">Dirección</label>
+                        <textarea class="form-control" placeholder="Direccion" name="direccion" [(ngModel)]="direccion.direccion" rows="3"></textarea>
+                      </div>
+
+                      <div class="col-sm-6 form-group">
+                        <label for="ac-fn">País</label>
+                        <select name="pais" required [(ngModel)]="direccion.pais" class="custom-select custom-select-lg" (change)="select_pais()">
+                            <option value="" selected disabled>Seleccionar</option>
+                            <option value="Argentina">Argentina</option>
+                            <option value="Bolivia">Bolivia</option>
+                            <option value="Brasil">Brasil</option>
+                            <option value="Chile">Chile</option>
+                            <option value="Colombia">Colombia</option>
+                            <option value="Costa Rica">Costa Rica</option>
+                            <option value="Cuba">Cuba</option>
+                            <option value="Ecuador">Ecuador</option>
+                            <option value="El Salvador">El Salvador</option>
+                            <option value="España">España</option>
+                            <option value="Estados Unidos">Estados Unidos</option>
+                            <option value="Guatemala">Guatemala</option>
+                            <option value="Haití">Haití</option>
+                            <option value="Honduras">Honduras</option>
+                            <option value="México">México</option>
+                            <option value="Nicaragua">Nicaragua</option>
+                            <option value="Panamá">Panamá</option>
+                            <option value="Paraguay">Paraguay</option>
+                            <option value="Perú">Perú</option>
+                            <option value="República Dominican">República Dominican</option>
+                            <option value="Uruguay">Uruguay</option>
+                            <option value="Venezuela">Venezuela</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label for="ac-fn">Región</label>
+                        <select id="sl-region" name="region" [(ngModel)]="direccion.region" class="custom-select custom-select-lg" disabled (change)="select_region()">
+                            <option value="" selected disabled>Seleccionar</option>
+                            <option value="{{item.id}}" *ngFor="let item of regiones">{{item.name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label for="ac-fn">Provincia</label>
+                        <select id="sl-provincia" name="provincia" [(ngModel)]="direccion.provincia" class="custom-select custom-select-lg" disabled (change)="select_provincia()">
+                            <option value="" selected disabled>Seleccionar</option>
+                            <option value="{{item.id}}" *ngFor="let item of provincias">{{item.name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label for="ac-fn">Distrito</label>
+                        <select id="sl-distrito" name="distrito" [(ngModel)]="direccion.distrito" class="custom-select custom-select-lg" disabled>
+                            <option value="" selected disabled>Seleccionar</option>
+                            <option value="{{item.id}}" *ngFor="let item of distritos">{{item.name}}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-12 form-group">
+                        <div class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" id="ex-check-1" name="principal" [(ngModel)]="direccion.principal">
+                            <label class="custom-control-label" for="ex-check-1">Activar cuenta principal</label>
+                          </div>
+                    </div>
+                    
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg">&nbsp;Crear dirección&nbsp;</button>
+            </form>
+
+            <div class="d-flex align-items-center justify-content-between mb-4 pb-1 pb-sm-3">
+                <h1 class="h2 mb-0">Mis direcciones</h1>
+                
+            </div>
+            <div class="row" *ngIf="!load_data">
+                <div class="col-12" *ngIf="direcciones.length >= 1">
+                    <ng-container *ngFor="let item of direcciones">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="row" >
+                                    
+                                    <div class="col-md-3 col-sm-4 mb-sm-0 mb-3">
+                                      <h3 class="mb-2 font-size-lg">{{item.destinatario}}</h3>
+                                      <span class="d-block mb-3 font-size-sm text-muted">{{item.zip}}</span>
+                                      
+                                      <a class="badge badge-primary" *ngIf="item.principal">Dirección de envio</a>
+            
+                                      <a class="badge badge-success" style="cursor: pointer;" *ngIf="!item.principal" (click)="establecer_principal(item._id)">Establecer principal</a>
+                                    </div>
+                                    <div class="col">
+                                      <p class="mb-3">
+                                          {{item.direccion}}
+                                      </p>
+                                      <p class="mb-3">
+                                        {{item.pais}} -
+                                        <span *ngIf="item.region">{{item.region}}</span> - 
+                                        <span *ngIf="item.provincia">{{item.provincia}}</span> -
+                                        <span *ngIf="item.distrito">{{item.distrito}}</span>
+                                      </p>
+                                    </div>
+                                  </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                    
+                    
+                </div>
+                <div class="col-12" *ngIf="direcciones.length == 0">
+                    <h3 class="h6 mb-2 text-uppercase">No se encontraron direcciónes</h3>
+                    <h6 class="h1" style="    font-size: 2rem !important;">Debe registrar su direccion de envio por favor.</h6>
+                </div>
+            </div>
+            <div class="row" *ngIf="load_data">
+                <div class="col-12 text-center">
+                    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+</main>
+
+
+<app-footer></app-footer>

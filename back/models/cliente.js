@@ -17,4 +17,4 @@ const ClienteSchema = new Schema({
     timestamps: true
 });
 
-module.exports = model('Cliente', ClienteSchema);
+module.exports = model('cliente', ClienteSchema);

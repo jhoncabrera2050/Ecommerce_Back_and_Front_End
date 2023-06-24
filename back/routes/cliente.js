@@ -13,4 +13,13 @@ api.get('/obtener_cliente_admin/:id', auth.auth,clientecontroller.obtener_client
 api.put('/actualizar_cliente_admin/:id', auth.auth, clientecontroller.actualizar_cliente_admin);
 api.delete('/eliminar_cliente_admin/:id',auth.auth,clientecontroller.eliminar_cliente_admin );
 api.put('/actualizar_perfil_cliente_guest/:id',auth.auth,clientecontroller.actualizar_perfil_cliente_guest);
+
+
+//Direccion
+
+api.post('/registro_direccion_cliente',auth.auth,clientecontroller.registro_direccion_cliente);
+api.get('/obtener_direccion_todos_cliente/:id',auth.auth,clientecontroller.obtener_direccion_todos_cliente);
+api.put('/cambiar_direccion_principal_cliente/:id/:cliente',auth.auth,clientecontroller.cambiar_direccion_principal_cliente);
+
+
 module.exports = api;
