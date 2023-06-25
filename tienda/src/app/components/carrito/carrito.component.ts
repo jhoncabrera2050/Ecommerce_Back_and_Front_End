@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { global } from 'src/app/services/global';
 import {  io } from "socket.io-client";
+import { GuestService } from 'src/app/services/guest.service';
 declare var iziToast:any;
 declare var Cleave:any;
 declare var StickySidebar:any;
@@ -19,13 +20,17 @@ export class CarritoComponent implements OnInit{
 
   public socket = io('http://localhost:3000');
 
+  public direccion_principal : any = {};
+  public envios: Array<any>=[];
+
 
   public carrito_arr : Array<any>=[];
   // public url;
   public subtotal = 0;
 
   constructor(
-    private _clienteService:ClienteService
+    private _clienteService:ClienteService,
+    private _guestService:GuestService
   ){
     this.url = global.url;
     this.idcliente= localStorage.getItem('_id');
@@ -35,6 +40,11 @@ export class CarritoComponent implements OnInit{
       this.carrito_arr = response.data;
       this.calcular_carrito();
     });
+    this._guestService.get_Envios().subscribe(
+      response=>{
+        console.log(response); 
+      }
+    ) 
   }
 
   //METODO DE PAGO
@@ -45,18 +55,33 @@ export class CarritoComponent implements OnInit{
         onCreditCardTypeChanged: function (type:any) {
             // update UI ...
         }
+      });
+
+      new Cleave('#cc-exp-date', {
+        date: true,
+        datePattern: ['m', 'y']
+      });
+
+      var sidebar = new StickySidebar('.sidebar-sticky', {topSpacing: 20});
     });
-
-    new Cleave('#cc-exp-date', {
-      date: true,
-      datePattern: ['m', 'y']
-    });
-
-    var sidebar = new StickySidebar('.sidebar-sticky', {topSpacing: 20});
-  })
-
-
+    this.get_direccion_principal();
   }
+
+  get_direccion_principal(){
+    this._clienteService.obtener_direccion_principal_cliente(localStorage.getItem('_id'),this.token).subscribe(
+      response=>{
+        if(response.data==undefined){
+          this.direccion_principal = undefined;
+        }else{
+          this.direccion_principal = response.data;
+        }
+        
+     
+
+      }
+    );
+  }
+
   calcular_carrito(){
     this.carrito_arr.forEach((element:any) => {
       this.subtotal = this.subtotal + parseInt(element.producto.precio);

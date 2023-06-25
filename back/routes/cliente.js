@@ -19,6 +19,7 @@ api.put('/actualizar_perfil_cliente_guest/:id',auth.auth,clientecontroller.actua
 
 api.post('/registro_direccion_cliente',auth.auth,clientecontroller.registro_direccion_cliente);
 api.get('/obtener_direccion_todos_cliente/:id',auth.auth,clientecontroller.obtener_direccion_todos_cliente);
+api.get('/obtener_direccion_principal_cliente/:id',auth.auth,clientecontroller.obtener_direccion_principal_cliente);
 api.put('/cambiar_direccion_principal_cliente/:id/:cliente',auth.auth,clientecontroller.cambiar_direccion_principal_cliente);
 
 

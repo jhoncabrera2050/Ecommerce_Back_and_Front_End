@@ -232,6 +232,27 @@ const registro_direccion_cliente  = async function(req,res){
     }
 }
 
+const obtener_direccion_principal_cliente  = async function(req,res){
+    if(req.user){
+
+        var id = req.params['id'];
+        var direccion = undefined; 
+
+        
+        direccion = await Direccion.findOne({cliente:id,principal:true});
+        if (direccion==undefined){
+            res.status(200).send({data:undefined});
+        }else{
+            res.status(200).send({data:direccion});
+        }  
+        
+    }else{
+        res.status(500).send({message: 'NoAccess'});
+    }
+}
+
+
+
 
 const obtener_direccion_todos_cliente  = async function(req,res){
     if(req.user){
@@ -274,5 +295,6 @@ module.exports = {
     actualizar_perfil_cliente_guest,
     registro_direccion_cliente,
     obtener_direccion_todos_cliente,
-    cambiar_direccion_principal_cliente
+    cambiar_direccion_principal_cliente,
+    obtener_direccion_principal_cliente
 }
