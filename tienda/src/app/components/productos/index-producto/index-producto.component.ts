@@ -165,10 +165,8 @@ export class IndexProductoComponent implements OnInit {
       if(this.filter_cat_productos == 'todos'){
         this._clienteService.listar_productos_publico(this.filter_producto).subscribe(
           response=>{
-    
             this.productos = response.data;
             this.load_data = false;
-            
           }
         );
       }else{
