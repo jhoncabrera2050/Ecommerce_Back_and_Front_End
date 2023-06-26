@@ -40,12 +40,12 @@ const obtener_portada = async function(req,res){
     var img = req.params['img'];
 
 
-    fs.stat('./uploads/productos/'+img, function(err){
+    fs.stat('../uploads/productos/'+img, function(err){
         if(!err){
-            let path_img = './uploads/productos/'+img;
+            let path_img = '../uploads/productos/'+img;
             res.status(200).sendFile(path.resolve(path_img));
         }else{
-            let path_img = './uploads/default.jpg';
+            let path_img = '../uploads/default.jpg';
             res.status(200).sendFile(path.resolve(path_img));
         }
     })
@@ -138,9 +138,9 @@ const actualizar_producto_admin = async function(req,res){
                     portada: portada_name 
                 });
 
-                fs.stat('./uploads/productos/'+reg.portada, function(err){
+                fs.stat('../uploads/productos/'+reg.portada, function(err){
                    if(!err){
-                    fs.unlink('./uploads/productos/'+reg.portada, (err)=>{
+                    fs.unlink('../uploads/productos/'+reg.portada, (err)=>{
                         if(err) throw err;
                     })
                    }

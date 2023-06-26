@@ -37,7 +37,7 @@
 
             <!-- Order review -->
             <h2 class="h4 mb-4">1. Detalles de orden</h2>
-            <div class="bg-secondary rounded mb-5">
+            <div class="bg-secondary rounded mb-5"  *ngIf="carrito_arr.length >= 1">
               <!-- Item -->
               <div class="media px-2 px-sm-4 py-4 border-bottom" *ngFor="let item of carrito_arr">
                 <a [routerLink]="['/productos/',item.producto.slug]" style="min-width: 80px;">
@@ -72,12 +72,50 @@
               </div>
             </div>
 
+            <div class="bg-secondary rounded mb-5 p-3" *ngIf="carrito_arr.length == 0">
+              <div class="row">
+                <div class="col-lg-3">
+                  <img src="assets/img/carrito-de-compras.png" alt="" style="width: 100%;">
+                </div>
+                <div class="col-lg-9" style="display: flex !important; align-items: center !important;">
+                  <dl style="font-size: 1.5rem !important;">
+                    <dt>Upps! 😇</dt>
+                    <dt>Tu carrito esta vacio</dt>
+                  </dl>
+                </div>
+              </div>
+            </div>
+
             <!-- Adresses -->
             <h2 class="h4 mb-4">2. Dirección de envío</h2>
             <div class="row pb-3">
               <div class="col-12">
                 <div class="card">
-                  <div class="card-body"></div>
+                  <div class="card-body">
+                    <div class="row" *ngIf="direccion_principal == undefined">
+                      <div class="col-12 text-center">
+                        <h3 style="color: #565656;    margin-bottom: 0px;">No tiene una dirección principal</h3>
+                        <img src="assets/img/1652734.png" style="width: 80px;">
+                      </div>
+                    </div>
+                    <div class="row"  *ngIf="direccion_principal != undefined">
+                      <div class="col-lg-12">
+                        <dl>
+                          <dt>Destinatario</dt>
+                          <dd>{{direccion_principal.destinatario}}</dd>
+                          <dt>Dirección</dt>
+                          <dd>{{direccion_principal.direccion}}</dd>
+                          <dd>{{direccion_principal.pais}} -
+                            <span *ngIf="direccion_principal.region">{{direccion_principal.region}}</span> -
+                            <span *ngIf="direccion_principal.provincia">{{direccion_principal.provincia}}</span> -
+                            <span *ngIf="direccion_principal.distrito">{{direccion_principal.distrito}}</span>
+                          </dd>
+                          <dt>ZIP - Telefono</dt>
+                          <dd>{{direccion_principal.zip}} - {{direccion_principal.telefono}}</dd>
+                        </dl>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -85,62 +123,23 @@
             <hr class="mb-4 pb-2">
 
             <!-- Shipping -->
-            <h2 class="h4 mb-4">3. Shipping Method</h2>
-            <div class="custom-control custom-radio mb-3">
-              <input type="radio" class="custom-control-input" id="courier" name="shipping" checked>
+            <h2 class="h4 mb-4">3. Métodos de envio</h2>
+            <div class="custom-control custom-radio mb-3" *ngFor="let item of envios">
+              <input (change)="cacular_total(item.titulo)" type="radio" class="custom-control-input" id="courier" checked name="shipping" name="precio_envio" [(ngModel)]="precio_envio" value="{{item.precio}}">
               <label for="courier" class="custom-control-label d-flex align-items-center">
                 <span>
-                  <strong class="d-block">Courier to your address</strong>
-                  <span class="text-muted font-size-sm">Estimated date: November 9</span>
+                  <strong class="d-block">{{item.titulo}}</strong>
+                  <span class="text-muted font-size-sm">{{item.tiempo}}</span>
                 </span>
-                <span class="ml-auto">$25.00</span>
+                <span class="ml-auto">${{item.precio}}</span>
               </label>
             </div>
-            <div class="custom-control custom-radio mb-3">
-              <input type="radio" class="custom-control-input" id="store-pickup" name="shipping">
-              <label for="store-pickup" class="custom-control-label d-flex align-items-center">
-                <span>
-                  <strong class="d-block">Pick up from store</strong>
-                  <span class="text-muted font-size-sm">Pick up on November 8 from 12:00pm</span>
-                </span>
-                <span class="ml-auto">Free</span>
-              </label>
-            </div>
-            <div class="custom-control custom-radio mb-3">
-              <input type="radio" class="custom-control-input" id="ups" name="shipping">
-              <label for="ups" class="custom-control-label d-flex align-items-center">
-                <span>
-                  <strong class="d-block">UPS Ground Shipping</strong>
-                  <span class="text-muted font-size-sm">Up to one week</span>
-                </span>
-                <span class="ml-auto">$10.00</span>
-              </label>
-            </div>
-            <div class="custom-control custom-radio mb-3">
-              <input type="radio" class="custom-control-input" id="locker-pickup" name="shipping">
-              <label for="locker-pickup" class="custom-control-label d-flex align-items-center">
-                <span>
-                  <strong class="d-block">Pick up at Createx Locker</strong>
-                  <span class="text-muted font-size-sm">Pick up on November 8 from 12:00pm</span>
-                </span>
-                <span class="ml-auto">$8.50</span>
-              </label>
-            </div>
-            <div class="custom-control custom-radio mb-3">
-              <input type="radio" class="custom-control-input" id="global-export" name="shipping">
-              <label for="global-export" class="custom-control-label d-flex align-items-center">
-                <span>
-                  <strong class="d-block">Createx Global Export</strong>
-                  <span class="text-muted font-size-sm">3-4 days</span>
-                </span>
-                <span class="ml-auto">$15.00</span>
-              </label>
-            </div>
+           
 
             <hr class="border-top-0 border-bottom pt-4 mb-4">
 
             <!-- Payment -->
-            <h2 class="h4 pt-2 mb-4">4. Payment Method</h2>
+            <h2 class="h4 pt-2 mb-4">4. Métodos de Pago</h2>
             <div class="row pb-4">
               <div class="col-lg-7">
                 <div class="accordion-alt" id="payment-methods">
@@ -152,7 +151,7 @@
                         <input type="radio" class="custom-control-input" id="cc" name="payment" checked>
                         <label for="cc" class="custom-control-label d-flex align-items-center">
                           <strong class="d-block mr-3">Credit card</strong>
-                          <img src="../../assets/img/ecommerce/checkout/cards.png" width="108" alt="Credit cards">
+                          <img src="assets/img/cards.png" width="108" alt="Credit cards">
                         </label>
                       </div>
                     </div>
@@ -183,18 +182,13 @@
                         <input type="radio" class="custom-control-input" id="paypal" name="payment">
                         <label for="paypal" class="custom-control-label d-flex align-items-center">
                           <strong class="d-block mr-3">PayPal</strong>
-                          <img src="../../assets/img/ecommerce/checkout/paypal-badge.png" width="48" alt="PayPal">
+                          <img src="assets/img/paypal-badge.png" width="48" alt="PayPal">
                         </label>
                       </div>
                     </div>
                     <div class="collapse" id="paypal-card" data-parent="#payment-methods">
-                      <div class="card-body pt-3 pb-0">
-                        <a href="#" class="d-inline-block mb-2" style="max-width: 300px;">
-                          <img src="../../assets/img/ecommerce/checkout/paypal.png" alt="PayPal">
-                        </a>
-                        <a href="#" class="d-inline-block mb-2" style="max-width: 300px;">
-                          <img src="../../assets/img/ecommerce/checkout/paypal-credit.png" alt="PayPal Credit">
-                        </a>
+                      <div class="card-body pt-3 pb-0" #paypalButton>
+                        
                       </div>
                     </div>
                   </div>
@@ -222,10 +216,10 @@
             <hr class="mb-4 pb-2">
 
             <!-- Additional info -->
-            <h2 class="h4 mb-4">5. Additional Information (optional)</h2>
+            <h2 class="h4 mb-4">5. Información adicional (opcional)</h2>
             <div class="form-group">
-              <label for="ch-notes">Order notes</label>
-              <textarea id="ch-notes" class="form-control form-control-lg" rows="5" placeholder="Notes about your order, e.g. special noted for delivery."></textarea>
+              <label for="ch-notes">Mensaje</label>
+              <textarea id="ch-notes" class="form-control form-control-lg" rows="5" placeholder="Mensaje" name="nota" [(ngModel)]="venta.nota"></textarea>
             </div>
           </div>
 
@@ -239,11 +233,11 @@
             }'>
               <div class="sidebar-sticky-inner">
                 <div class="form-group">
-                  <label for="promo-code">Apply a promo code</label>
+                  <label for="promo-code">Aplicar cupón</label>
                   <div class="input-group input-group-lg">
-                    <input type="text" id="promo-code" class="form-control" placeholder="Enter promo code">
+                    <input type="text" id="promo-code" class="form-control" placeholder="Aplicar cupón" name="cupon" [(ngModel)]="venta.cupon">
                     <div class="input-group-append">
-                      <button type="button" class="btn btn-primary">&nbsp;&nbsp;Apply&nbsp;&nbsp;</button>
+                      <button type="button" class="btn btn-primary">&nbsp;&nbsp;Aplicar&nbsp;&nbsp;</button>
                     </div>
                   </div>
                 </div>
@@ -258,7 +252,7 @@
                     </li>
                     <li class="d-flex justify-content-between mb-2">
                       <span>Envio:</span>
-                      <span>$25.00</span>
+                      <span>${{precio_envio}}</span>
                     </li>
                     <li class="d-flex justify-content-between mb-2">
                       <span>Descuento:</span>
@@ -267,7 +261,7 @@
                     
                   </ul>
                   <div class="d-flex justify-content-between p-4">
-                    <span class="h5 mb-0">Order total:</span>
+                    <span class="h5 mb-0">Total a pagar:</span>
                     <span class="h5 mb-0">${{total_pagar}}</span>
                   </div>
                 </div>
