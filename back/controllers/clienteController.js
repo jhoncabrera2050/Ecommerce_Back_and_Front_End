@@ -1,6 +1,9 @@
 'use strict';
 
 var Cliente = require('../models/cliente');
+var Contacto = require('../models/contacto')
+var Venta = require('../models/venta')
+var Dventa = require('../models/dventa')
 var Direccion = require('../models/direccion');
 const bcrypt = require('bcrypt');
 var jwt = require('../helpers/jwt')
@@ -279,6 +282,33 @@ const cambiar_direccion_principal_cliente  = async function(req,res){
         res.status(500).send({message: 'NoAccess'});
     }
 }
+
+// contacto
+
+const enviar_mensaje_contacto  = async function(req,res){
+    let data = req.body
+    data.estado = 'Abierto'
+    let reg = await Contacto.create(data);
+    res.status(200).send({data:reg});
+}
+
+
+// ordenes
+
+const obtener_ordenes_cliente  = async function(req,res){
+    if(req.user){
+
+        var id = req.params['id'];
+        let reg = await Venta.find({cliente:id}).sort({createdAt:-1});
+        if(reg.length >=1){
+            res.status(200).send({data:reg});
+        }else if(reg.length == 0) {
+            res.status(200).send({data:undefined});
+        }
+    }else{
+        res.status(500).send({message: 'NoAccess'});
+    }
+}
 module.exports = {
     registro_cliente,
     login_cliente,
@@ -292,5 +322,7 @@ module.exports = {
     registro_direccion_cliente,
     obtener_direccion_todos_cliente,
     cambiar_direccion_principal_cliente,
-    obtener_direccion_principal_cliente
+    obtener_direccion_principal_cliente,
+    enviar_mensaje_contacto,
+    obtener_ordenes_cliente
 }

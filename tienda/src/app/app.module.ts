@@ -21,6 +21,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { DescuentoPipe } from './pipes/descuento.pipe';
 import { DireccionesComponent } from './components/usuario/direcciones/direcciones.component';
+import { ContactoComponent } from './components/contacto/contacto.component';
+import { IndexOrdenesComponent } from './components/usuario/ordenes/index-ordenes/index-ordenes.component';
+import { DetalleOrdenComponent } from './components/usuario/ordenes/detalle-orden/detalle-orden.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,10 @@ import { DireccionesComponent } from './components/usuario/direcciones/direccion
     ShowProductoComponent,
     CarritoComponent,
     DescuentoPipe,
-    DireccionesComponent
+    DireccionesComponent,
+    ContactoComponent,
+    IndexOrdenesComponent,
+    DetalleOrdenComponent
   ],
   imports: [
     BrowserModule,

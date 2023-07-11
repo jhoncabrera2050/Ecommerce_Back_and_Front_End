@@ -29,6 +29,18 @@ export class GuestService {
     return this._http.get(this.url + 'listar_productos_nuevos_publico/',{headers: headers});
   }
 
+  listar_productos_masvendidos_publico():Observable<any>{
+
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+    return this._http.get(this.url + 'listar_productos_masvendidos_publico',{headers: headers});
+  }
+
+  enviar_mensaje_contacto(data:any):Observable<any>{
+
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+    return this._http.post(this.url + 'enviar_mensaje_contacto',data,{headers: headers});
+  }
+
   get_Regiones():Observable<any>{
     return this._http.get('./assets/regiones.json');
   }

@@ -1,0 +1,72 @@
+<app-nav></app-nav>
+
+<main  class="cs-page-wrapper">
+    <nav class="bg-secondary mb-3" aria-label="breadcrumb">
+        <div class="container">
+          <ol class="breadcrumb breadcrumb-alt mb-0">
+            <li class="breadcrumb-item">
+              <a [routerLink]="['/']"><i class="cxi-home"></i></a>
+            </li>
+      
+            <li class="breadcrumb-item active" aria-current="page">Mi perfil</li>
+          </ol>
+        </div>
+    </nav>
+
+    <section class="container pt-3 pt-lg-4 pb-5 pb-lg-6">
+        <div class="row pb-2 pb-lg-0">
+
+          <!-- Account menu (sticky sidebar) -->
+          <aside class="col-xl-3 col-lg-4 pb-3 mb-4 mb-lg-0">
+            <app-siderbar></app-siderbar>
+          </aside>
+          
+
+          <!-- Content -->
+          <div class="col-lg-8 ml-auto">
+            <div class="d-flex align-items-center justify-content-between mb-4 pb-sm-2">
+                <h1 class="h2 mb-0">Mis ordenes</h1> 
+                <!-- <div class="form-inline">
+                  <label for="sort-orders" class="d-none d-sm-block font-weight-bold mr-2 pr-1">Sort orders</label>
+                  <select id="sort-orders" class="custom-select">
+                    <option>All</option>
+                    <option>Delivered</option>
+                    <option>In Progress</option>
+                    <option>Delayed</option>
+                    <option>Canceled</option>
+                  </select>
+                </div> -->
+              </div>
+  
+              <!-- Orders accordion -->
+              <div class="accordion-alt" id="orders">
+  
+                <!-- Order -->
+                
+  
+                <!-- Order -->
+                <div class="card border-bottom" *ngFor="let item of ordenes">
+                  <div class="card-header accordion-heading py-1">
+                    <a href="#order-2" class="d-flex flex-wrap justify-content-between py-3" data-toggle="collapse" aria-expanded="false">
+                      <span class="pr-2"># {{item._id.toUpperCase()}}</span>
+                      <span class="font-size-sm text-muted text-nowrap px-2">
+                        <i class="cxi-clock font-size-base align-middle mt-n1 mr-1"></i>
+                        Nov 27, 2020
+                      </span>
+                      <span class="badge badge-info">In progress</span>
+                      <span class="text-dark pl-1">$87.40</span>
+                    </a>
+                  </div>
+                  
+                </div>
+  
+               
+              </div>
+          </div>
+        </div>
+      </section>
+
+</main>
+
+
+<app-footer></app-footer>

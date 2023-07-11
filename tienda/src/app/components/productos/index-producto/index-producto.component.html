@@ -19,14 +19,13 @@
           <div class="col-12">
             <div class="py-5 px-md-5 px-4 bg-size-cover bg-position-center-y" style="background-image: url({{url}}obtener_banner_descuento/{{descuento_activo.banner}});">
               <div class="mt-md-3 mb-5 pb-5 p-md-2" style="max-width: 14rem;">
-                <h3 class="mb-2 pb-1 font-size-sm text-uppercase">{{descuento_activo.fecha_inicio}} <br>
-                   hasta  <br> {{descuento_activo.fecha_fin}}</h3>
+                <h3 class="mb-2 pb-1 fs-sm text-uppercase">{{descuento_activo.fecha_inicio}} <br>
+                  hasta <br> {{descuento_activo.fecha_fin}}</h3>
                 <h2 class="pb-3">{{descuento_activo.titulo}}</h2>
-                <a class="btn btn-primary mb-5">Todos los productos</a>
+                <a class="btn btn-primary mb-5" >Todos los productos</a>
               </div>
               <div class="mb-md-3 pt-5 p-md-2">
-                <h3 class="mb-2 pb-1 font-size-sm text-uppercase">Descuento de {{descuento_activo.descuento}}%</h3>
-             
+                <h3 class="mb-2 pb-1 fs-sm text-uppercase">Descuento de {{descuento_activo.descuento}}%</h3>
               </div>
             </div>
 
@@ -135,7 +134,7 @@
                         </div>
                       </div>
                       <ul class="cs-filter-list list-unstyled pr-3" style="height: 12rem;" data-simplebar data-simplebar-auto-hide="false">
-                        <li class="cs-filter-item" >
+                        <li class="cs-filter-item" > 
                           <div class="custom-control custom-checkbox">
                             <input type="radio" name="group1" (change)="buscar_por_categoria()" class="custom-control-input" id="blazers-todos" value="todos" [(ngModel)]="filter_cat_productos">
                             <label for="blazers-todos" class="custom-control-label">
@@ -143,7 +142,7 @@
                               <span class="pl-1 text-muted">(235)</span>
                             </label>
                           </div>
-                        </li>
+                        </li> 
                         <li class="cs-filter-item" *ngFor="let item of config_global.categorias;let indice = index">
                           <div class="custom-control custom-checkbox">
                             <input type="radio" name="group1" (change)="buscar_por_categoria()" class="custom-control-input" id="blazers-{{indice}}" value="{{item.titulo}}" [(ngModel)]="filter_cat_productos">
@@ -261,8 +260,8 @@
                         <span class="h5 d-inline-block mb-0">${{item.precio}}</span>
                       </div>
                       <div class="d-flex align-items-center" *ngIf="descuento_activo != undefined">
-                        <span class="h5 d-inline-block text-danger mb-0">${{item.precio | descuento: descuento_activo.descuento}}</span>
-                        <del class="d-inline-block ml-2 pl-1 text-muted">${{item.precio}}</del>
+                        <span class="h5 d-inline-block text-danger mb-0">S/.{{item.precio | descuento: descuento_activo.descuento}}</span>
+                        <del class="d-inline-block ml-2 pl-1 text-muted">S/.{{item.precio}}</del>
                       </div>
                     </div>
                     <div class="card-footer">

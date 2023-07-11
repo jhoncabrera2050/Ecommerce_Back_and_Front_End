@@ -1,0 +1,374 @@
+<app-nav></app-nav>
+
+<main  class="cs-page-wrapper">
+    <nav class="bg-secondary mb-3" aria-label="breadcrumb">
+        <div class="container">
+          <ol class="breadcrumb breadcrumb-alt mb-0">
+            <li class="breadcrumb-item">
+              <a [routerLink]="['/']"><i class="cxi-home"></i></a>
+            </li>
+      
+            <li class="breadcrumb-item active" aria-current="page">Conctacto</li>
+          </ol>
+        </div>
+    </nav>
+    <section class="container pt-3 pt-md-4">
+        <div class="row">
+    
+            <!-- Nav tabs -->
+            <div class="col-md-4">
+            <div class="mb-md-5 mb-4 pb-lg-4" data-simplebar="" data-simplebar-auto-hide="false">
+                <ul class="nav flex-md-column flex-nowrap text-nowrap" role="tablist">
+                <li class="nav-item">
+                    <a href="#contact" id="contact-tab" class="nav-link h3 mr-md-0 mr-sm-5 mr-4 mb-0 px-0 active" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="true">
+                    Contacto
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#stores" id="stores-tab" class="nav-link h3 mr-md-0 mr-sm-5 mr-4 mb-0 px-0" data-toggle="tab" role="tab" aria-controls="stores" aria-selected="false">
+                    Nuestras tiendas
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#faq" id="faq-tab" class="nav-link h3 mr-md-0 mr-sm-5 mr-4 mb-0 px-0" data-toggle="tab" role="tab" aria-controls="faq" aria-selected="false">
+                    FAQ
+                    </a>
+                </li>
+                </ul>
+            </div>
+            </div>
+    
+            <!-- Tabs content -->
+            <div class="col-md-8 ml-auto pt-md-2">
+            <div class="tab-content pb-2 pb-sm-4 pb-lg-5">
+    
+                <!-- Tab: Contact Us -->
+                <div id="contact" class="tab-pane pb-5 fade show active" role="tabpanel" aria-labelledby="contact-tab">
+                <p class="text-dark lead font-weight-bold">Si tiene alguna pregunta, inquietud o comentario, ¡nos encantaría saber de usted! Envíe su consulta usando cualquiera de los siguientes métodos:
+</p>
+                <div class="nav-dark mb-5">
+                    <a href="tel:4055550128" class="nav-link d-flex align-items-center font-weight-normal p-0 mb-2">
+                    <i class="cxi-iphone text-primary lead mr-2"></i>
+                    <span>(405) 555-0128</span>
+                    </a>
+                    <a href="mailto:support@example.com" class="nav-link d-flex align-items-center font-weight-normal p-0 mb-2">
+                    <i class="cxi-mail text-primary lead mr-2"></i>
+                    <span>support@example.com</span>
+                    </a>
+                    <a href="#" class="nav-link d-flex align-items-center font-weight-normal p-0 mb-2">
+                    <i class="cxi-messenger text-primary lead mr-2"></i>
+                    <span>Conctactanos por  Messenger</span>
+                    </a>
+                    <a href="#" class="nav-link d-flex align-items-center font-weight-normal p-0 mb-2">
+                    <i class="cxi-twitter text-primary lead mr-2"></i>
+                    <span>Nuestro  twitter</span>
+                    </a>
+                </div>
+                <p class="text-dark lead font-weight-bold pb-2">O póngase en contacto con nosotros completando el siguiente formulario:</p>
+                <form #registroForm="ngForm" (ngSubmit)="registro(registroForm)">
+                    <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label for="cont-name">Nombres y Apellidos</label>
+                        <input type="text" id="cont-name" class="form-control form-control-lg" placeholder="John Doe" required="" name="cliente" [(ngModel)]="contacto.cliente">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label for="cont-email">Correo</label>
+                        <input type="email" id="cont-email" class="form-control form-control-lg" placeholder="johndoe@example.com" required="" name="correo" [(ngModel)]="contacto.correo">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label for="cont-phone">Telefono</label>
+                        <input type="text" id="cont-phone" class="form-control form-control-lg bg-0"   placeholder="00-000-0000" required="" name="telefono" [(ngModel)]="contacto.telefono">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label for="cont-subject">Asunto</label>
+                        <input type="text" id="cont-subject" class="form-control form-control-lg bg-0" placeholder="Asunto del mensaje" required="" name="asunto" [(ngModel)]="contacto.asunto">
+                    </div>
+                    <div class="col-12 form-group">
+                        <label for="cont-message">Mensaje</label>
+                        <textarea id="cont-message" class="form-control form-control-lg" rows="5" placeholder="Escribe tu consulta" required="" name="mensaje" [(ngModel)]="contacto.mensaje"></textarea>
+                        
+                    </div>
+                    <div class="col-lg-4 col-sm-5 pt-2">
+                        <button *ngIf="!load_btn" type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
+                        <button *ngIf="load_btn" type="button" class="btn btn-primary">
+                            <span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true" >
+                                Enviando ...
+                            </span>
+                        </button>
+                    </div>
+                    </div>
+                </form>
+                </div>
+    
+                <!-- Tab: Outlet Stores -->
+                <div id="stores" class="tab-pane pb-3 fade" role="tabpanel" aria-labelledby="stores-tab">
+                <div class="row">
+                    <div class="col-sm-6 mb-grid-gutter">
+                    <div class="card card-hover">
+                        <img class="card-img-top" src="../../assets/img/ecommerce/contacts/01.jpg" alt="Card image">
+                        <div class="card-body">
+                        <h3 class="h4">New York, USA</h3>
+                        <ul class="mb-0 list-unstyled nav-dark">
+                            <li class="mb-2 pb-1">
+                            <a class="d-flex nav-link font-weight-normal p-0" href="tel:4055550128">
+                                <i class="cxi-iphone mt-1 mr-2 pr-1 lead text-primary"></i>
+                                (405) 555-0128
+                            </a>
+                            </li>
+                            <li class="mb-2 pb-1">
+                            <a class="d-flex nav-link font-weight-normal p-0" href="mailto:newyork@example.com">
+                                <i class="cxi-mail mt-1 mr-2 pr-1 lead text-primary"></i>
+                                newyork@example.com
+                            </a>
+                            </li>
+                            <li class="mb-2 pb-1">
+                            <div class="d-flex">
+                                <i class="cxi-clock mt-1 mr-2 pr-1 lead text-primary"></i>
+                                Daily from 9am to 9pm
+                            </div>
+                            </li>
+                            <li class="mb-2 pb-1">
+                            <a class="d-flex nav-link font-weight-normal p-0" href="#">
+                                <i class="cxi-map-pin-outline mt-1 mr-2 pr-1 lead text-primary"></i>
+                                20 W 29th Street New York, NY 10001
+                            </a>
+                            </li>
+                        </ul>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-sm-6 mb-grid-gutter">
+                    <div class="card card-hover">
+                        <img class="card-img-top" src="../../assets/img/ecommerce/contacts/02.jpg" alt="Card image">
+                        <div class="card-body">
+                        <h3 class="h4">Delaware, USA</h3>
+                        <ul class="mb-0 list-unstyled nav-dark">
+                            <li class="mb-2 pb-1">
+                            <a class="d-flex nav-link font-weight-normal p-0" href="tel:8085550111">
+                                <i class="cxi-iphone mt-1 mr-2 pr-1 lead text-primary"></i>
+                                (808) 555-0111
+                            </a>
+                            </li>
+                            <li class="mb-2 pb-1">
+                            <a class="d-flex nav-link font-weight-normal p-0" href="mailto:delaware@example.com">
+                                <i class="cxi-mail mt-1 mr-2 pr-1 lead text-primary"></i>
+                                delaware@example.com
+                            </a>
+                            </li>
+                            <li class="mb-2 pb-1">
+                            <div class="d-flex">
+                                <i class="cxi-clock mt-1 mr-2 pr-1 lead text-primary"></i>
+                                Daily from 10am to 9pm
+                            </div>
+                            </li>
+                            <li class="mb-2 pb-1">
+                            <a class="d-flex nav-link font-weight-normal p-0" href="#">
+                                <i class="cxi-map-pin-outline mt-1 mr-2 pr-1 lead text-primary"></i>
+                                6391 Elgin St. Celina, Delaware 10299
+                            </a>
+                            </li>
+                        </ul>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-sm-6 mb-grid-gutter">
+                    <div class="card card-hover">
+                        <img class="card-img-top" src="../../assets/img/ecommerce/contacts/03.jpg" alt="Card image">
+                        <div class="card-body">
+                        <h3 class="h4">New Jersey, USA</h3>
+                        <ul class="mb-0 list-unstyled nav-dark">
+                            <li class="mb-2 pb-1">
+                            <a class="d-flex nav-link font-weight-normal p-0" href="tel:7025550122">
+                                <i class="cxi-iphone mt-1 mr-2 pr-1 lead text-primary"></i>
+                                (702) 555-0122
+                            </a>
+                            </li>
+                            <li class="mb-2 pb-1">
+                            <a class="d-flex nav-link font-weight-normal p-0" href="mailto:newjersey@example.com">
+                                <i class="cxi-mail mt-1 mr-2 pr-1 lead text-primary"></i>
+                                newjersey@example.com
+                            </a>
+                            </li>
+                            <li class="mb-2 pb-1">
+                            <div class="d-flex">
+                                <i class="cxi-clock mt-1 mr-2 pr-1 lead text-primary"></i>
+                                Daily from 9am to 8pm
+                            </div>
+                            </li>
+                            <li class="mb-2 pb-1">
+                            <a class="d-flex nav-link font-weight-normal p-0" href="#">
+                                <i class="cxi-map-pin-outline mt-1 mr-2 pr-1 lead text-primary"></i>
+                                2464 Royal Ln. Mesa, New Jersey 45463
+                            </a>
+                            </li>
+                        </ul>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-sm-6 mb-grid-gutter">
+                    <div class="card card-hover">
+                        <img class="card-img-top" src="../../assets/img/ecommerce/contacts/04.jpg" alt="Card image">
+                        <div class="card-body">
+                        <h3 class="h4">Maine, USA</h3>
+                        <ul class="mb-0 list-unstyled nav-dark">
+                            <li class="mb-2 pb-1">
+                            <a class="d-flex nav-link font-weight-normal p-0" href="tel:2195550114">
+                                <i class="cxi-iphone mt-1 mr-2 pr-1 lead text-primary"></i>
+                                (219) 555-0114
+                            </a>
+                            </li>
+                            <li class="mb-2 pb-1">
+                            <a class="d-flex nav-link font-weight-normal p-0" href="mailto:maine@example.com">
+                                <i class="cxi-mail mt-1 mr-2 pr-1 lead text-primary"></i>
+                                maine@example.com
+                            </a>
+                            </li>
+                            <li class="mb-2 pb-1">
+                            <div class="d-flex">
+                                <i class="cxi-clock mt-1 mr-2 pr-1 lead text-primary"></i>
+                                Daily from 9am to 8pm
+                            </div>
+                            </li>
+                            <li class="mb-2 pb-1">
+                            <a class="d-flex nav-link font-weight-normal p-0" href="#">
+                                <i class="cxi-map-pin-outline mt-1 mr-2 pr-1 lead text-primary"></i>
+                                8502 Preston Rd. Inglewood, Maine 98380
+                            </a>
+                            </li>
+                        </ul>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+    
+                <!-- Tab: FAQ -->
+                <div id="faq" class="tab-pane fade mt-n3 mt-dm-0 pb-5" role="tabpanel" aria-labelledby="faq-tab">
+                <div class="accordion-alt" id="accordion">
+                    <!-- Card -->
+                    <div class="card border-bottom">
+                    <div class="card-header" id="headingFaq-1">
+                        <h5 class="accordion-heading">
+                        <a href="#faq-1" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="faq-1">Do I need to register to place an order?
+                            <span class="accordion-indicator"></span>
+                        </a>
+                        </h5>
+                    </div>
+                    <div id="faq-1" class="collapse show" aria-labelledby="headingFaq-1" data-parent="#accordion">
+                        <div class="card-body text-muted">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</div>
+                    </div>
+                    </div>
+                    <!-- Card -->
+                    <div class="card border-bottom">
+                    <div class="card-header" id="headingFaq-2">
+                        <h5 class="accordion-heading">
+                        <a href="#faq-2" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="faq-2">What is the estimated delivery time?
+                            <span class="accordion-indicator"></span>
+                        </a>
+                        </h5>
+                    </div>
+                    <div id="faq-2" class="collapse" aria-labelledby="headingFaq-2" data-parent="#accordion">
+                        <div class="card-body text-muted">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</div>
+                    </div>
+                    </div>
+                    <!-- Card -->
+                    <div class="card border-bottom">
+                    <div class="card-header" id="headingFaq-3">
+                        <h5 class="accordion-heading">
+                        <a href="#faq-3" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="faq-3">How can I pay for my order?
+                            <span class="accordion-indicator"></span>
+                        </a>
+                        </h5>
+                    </div>
+                    <div id="faq-3" class="collapse" aria-labelledby="headingFaq-3" data-parent="#accordion">
+                        <div class="card-body text-muted">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</div>
+                    </div>
+                    </div>
+                    <!-- Card -->
+                    <div class="card border-bottom">
+                    <div class="card-header" id="headingFaq-4">
+                        <h5 class="accordion-heading">
+                        <a href="#faq-4" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="faq-4">Can I get a refund if the price has changed since I ordered it?
+                            <span class="accordion-indicator"></span>
+                        </a>
+                        </h5>
+                    </div>
+                    <div id="faq-4" class="collapse" aria-labelledby="headingFaq-4" data-parent="#accordion">
+                        <div class="card-body text-muted">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</div>
+                    </div>
+                    </div>
+                    <!-- Card -->
+                    <div class="card border-bottom">
+                    <div class="card-header" id="headingFaq-5">
+                        <h5 class="accordion-heading">
+                        <a href="#faq-5" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="faq-5">Do you refund delivery charges if I return something?
+                            <span class="accordion-indicator"></span>
+                        </a>
+                        </h5>
+                    </div>
+                    <div id="faq-5" class="collapse" aria-labelledby="headingFaq-5" data-parent="#accordion">
+                        <div class="card-body text-muted">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</div>
+                    </div>
+                    </div>
+                    <!-- Card -->
+                    <div class="card border-bottom">
+                    <div class="card-header" id="headingFaq-6">
+                        <h5 class="accordion-heading">
+                        <a href="#faq-6" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="faq-6">What documents will be provided with the order?
+                            <span class="accordion-indicator"></span>
+                        </a>
+                        </h5>
+                    </div>
+                    <div id="faq-6" class="collapse" aria-labelledby="headingFaq-6" data-parent="#accordion">
+                        <div class="card-body text-muted">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</div>
+                    </div>
+                    </div>
+                    <!-- Card -->
+                    <div class="card border-bottom">
+                    <div class="card-header" id="headingFaq-7">
+                        <h5 class="accordion-heading">
+                        <a href="#faq-7" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="faq-7">Can I return the order to the courier if anything does not suit me?
+                            <span class="accordion-indicator"></span>
+                        </a>
+                        </h5>
+                    </div>
+                    <div id="faq-7" class="collapse" aria-labelledby="headingFaq-7" data-parent="#accordion">
+                        <div class="card-body text-muted">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</div>
+                    </div>
+                    </div>
+                    <!-- Card -->
+                    <div class="card border-bottom">
+                    <div class="card-header" id="headingFaq-8">
+                        <h5 class="accordion-heading">
+                        <a href="#faq-8" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="faq-8">What should I do if my order hasn't been delivered yet?
+                            <span class="accordion-indicator"></span>
+                        </a>
+                        </h5>
+                    </div>
+                    <div id="faq-8" class="collapse" aria-labelledby="headingFaq-8" data-parent="#accordion">
+                        <div class="card-body text-muted">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</div>
+                    </div>
+                    </div>
+                    <!-- Card -->
+                    <div class="card border-bottom">
+                    <div class="card-header" id="headingFaq-9">
+                        <h5 class="accordion-heading">
+                        <a href="#faq-9" class="collapsed" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="faq-9">What is your Returns Policy?
+                            <span class="accordion-indicator"></span>
+                        </a>
+                        </h5>
+                    </div>
+                    <div id="faq-9" class="collapse" aria-labelledby="headingFaq-9" data-parent="#accordion">
+                        <div class="card-body text-muted">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+<app-footer></app-footer>

@@ -22,5 +22,8 @@ api.get('/obtener_direccion_todos_cliente/:id',auth.auth,clientecontroller.obten
 api.get('/obtener_direccion_principal_cliente/:id',auth.auth,clientecontroller.obtener_direccion_principal_cliente);
 api.put('/cambiar_direccion_principal_cliente/:id/:cliente',auth.auth,clientecontroller.cambiar_direccion_principal_cliente);
 
-
+//Contacto
+api.post('/enviar_mensaje_contacto',clientecontroller.enviar_mensaje_contacto);
+//ordenes
+api.get('/obtener_ordenes_cliente/:id', auth.auth, clientecontroller.obtener_ordenes_cliente);
 module.exports = api;
