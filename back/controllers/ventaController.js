@@ -64,10 +64,7 @@ const registro_compra_cliente = async function(req,res){
             });
 
             //LIMPIAR CARRITO
-            // await Carrito.remove({
-            //     cliente:data.cliente
-            // }); 
-
+            await Carrito.deleteMany({ cliente: data.cliente });
         });
         
         res.status(200).send({venta:venta});
