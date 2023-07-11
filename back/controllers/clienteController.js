@@ -10,27 +10,38 @@ var jwt = require('../helpers/jwt')
 
 
 const registro_cliente = async function(req,res){
-    var data = req.body
-    var clientes_arr = [];
-    clientes_arr = await Cliente.find({email:data.email});
-    if(clientes_arr.length == 0){
-        // var reg = await Cliente.create(data);
-        if (data.password) {
-            try {
-                const hash = await bcrypt.hash(data.password, 10); // Utiliza 10 salt rounds
-                data.password = hash;
-                var reg = await Cliente.create(data);
-                res.status(200).send({ data: reg });
-            } catch (error) {
-                console.error('Error al hashear la contraseña:', error);
-                res.status(500).send({ message: 'Error al crear el cliente', data: undefined });
-            }
-        } else {
-            res.status(200).send({ message: 'No hay una contraseña', data: undefined });
-        }
-    }else{
-        res.status(200).send({message:'el correo ya existe en la base de datos', data:undefined});
+    if(req.user){
+            var data = req.body;
+            const saltRounds = 10;
+            bcrypt.hash('123456789', saltRounds, async function(err, hash) {
+                if (hash) {
+                  data.password = hash;
+                  let reg = await Cliente.create(data);
+                  res.status(200).send({ data: reg });
+                } else {
+                  res.status(200).send({ message: 'hubo un error en el servidor', data: undefined });
+                }
+              });
     }
+
+    // if(clientes_arr.length == 0){
+    //     // var reg = await Cliente.create(data);
+    //     if (data.password) {
+    //         try {
+    //             const hash = await bcrypt.hash(data.password, 10); // Utiliza 10 salt rounds
+    //             data.password = hash;
+    //             var reg = await Cliente.create(data);
+    //             res.status(200).send({ data: reg });
+    //         } catch (error) {
+    //             console.error('Error al hashear la contraseña:', error);
+    //             res.status(500).send({ message: 'Error al crear el cliente', data: undefined });
+    //         }
+    //     } else {
+    //         res.status(200).send({ message: 'No hay una contraseña', data: undefined });
+    //     }
+    // }else{
+    //     res.status(200).send({message:'el correo ya existe en la base de datos', data:undefined});
+    // }
 }
 
 const login_cliente = async function(req, res) {

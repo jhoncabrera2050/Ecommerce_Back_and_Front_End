@@ -5,29 +5,17 @@
         <div class="cs-carousel-inner" data-carousel-options=''>
     
           <!-- Slide 1 -->
-          <div class="bg-size-cover py-xl-6" *ngIf="descuento_activo != undefined" style="background-image: url({{url}}obtener_banner_descuento/{{descuento_activo.banner}});">
-            <div class="container pt-5 pb-6">
-              <div class="row pb-lg-6">
-                <div class="col-lg-6 offset-lg-1 offset-xl-0 pb-4 pb-md-6">
-                  <h3 class="font-size-lg text-uppercase cs-from-left cs-delay-1">Desde {{descuento_activo.fecha_inicio}} hasta {{descuento_activo.fecha_fin}}</h3>
-                  <h2 class="display-2 mb-lg-5 pb-3 cs-from-left">{{descuento_activo.titulo}}</h2>
-                  <div class="mb-4 cs-scale-up cs-delay-2">
-                    <a [routerLink]="['/productos']"  class="btn btn-outline-primary btn-lg">Ver productos</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+
     
           <!-- Slide 2 -->
           <div class="bg-size-cover py-xl-6" style="background-image: url(../../assets/img/ecommerce/home/hero-slider/02.jpg);">
             <div class="container pt-5 pb-6">
               <div class="row pb-lg-6">
                 <div class="col-lg-6 offset-lg-1 offset-xl-0 pb-4 pb-md-6">
-                  <h3 class="font-size-lg text-uppercase cs-from-top cs-delay-1">New Collection</h3>
-                  <h2 class="display-2 mb-lg-5 pb-3 cs-scale-down">Fall-Winter 2021</h2>
+                  <h3 class="font-size-lg text-uppercase cs-from-top cs-delay-1"></h3>
+                  <h2 class="display-2 mb-lg-5 pb-3 cs-scale-down"></h2>
                   <div class="mb-4 cs-scale-down cs-delay-2">
-                    <a href="shop-catalog.html" class="btn btn-outline-primary btn-lg">Shop the collection</a>
+                    <a href="shop-catalog.html" class="btn btn-outline-primary btn-lg"></a>
                   </div>
                 </div>
               </div>
@@ -39,10 +27,10 @@
             <div class="container pt-5 pb-6">
               <div class="row pb-lg-6">
                 <div class="col-lg-6 offset-lg-1 offset-xl-0 pb-4 pb-md-6">
-                  <h3 class="font-size-lg text-uppercase cs-from-left cs-delay-1">Limited Edition</h3>
-                  <h2 class="display-2 mb-lg-5 pb-3 cs-from-left">Leather Issue</h2>
+                  <h3 class="font-size-lg text-uppercase cs-from-left cs-delay-1"></h3>
+                  <h2 class="display-2 mb-lg-5 pb-3 cs-from-left"></h2>
                   <div class="mb-4 cs-scale-up cs-delay-2">
-                    <a href="shop-catalog.html" class="btn btn-outline-primary btn-lg">Shop the collection</a>
+                    <a href="shop-catalog.html" class="btn btn-outline-primary btn-lg"></a>
                   </div>
                 </div>
               </div>
@@ -54,10 +42,10 @@
             <div class="container pt-5 pb-6">
               <div class="row pb-lg-6">
                 <div class="col-lg-6 offset-lg-1 offset-xl-0 pb-4 pb-md-6">
-                  <h3 class="font-size-lg text-uppercase cs-from-top cs-delay-1">Hottest Prices</h3>
-                  <h2 class="display-2 mb-lg-5 pb-3 cs-scale-down">Kidswear Sales</h2>
+                  <h3 class="font-size-lg text-uppercase cs-from-top cs-delay-1"></h3>
+                  <h2 class="display-2 mb-lg-5 pb-3 cs-scale-down"></h2>
                   <div class="mb-4 cs-scale-down cs-delay-2">
-                    <a href="shop-catalog.html" class="btn btn-outline-primary btn-lg">Shop sale now</a>
+                    <a href="shop-catalog.html" class="btn btn-outline-primary btn-lg"></a>
                   </div>
                 </div>
               </div>
@@ -86,26 +74,10 @@
         <div class="cs-carousel cs-nav-outside">
           <div class="cs-carousel-inner cs-carousel-inner-two" data-carousel-options=''>
             <!-- Category -->
-            <a href="shop-catalog.html" class="d-block cs-image-scale cs-heading-highlight text-center">
-              <div class="cs-image-inner mb-3 rounded">
-                <img src="../../assets/img/ecommerce/home/categories/01.jpg" alt="Women’s">
-              </div>
-              <h3 class="h5 mb-1">Women’s</h3>
-            </a>
+
             <!-- Category -->
-            <a href="shop-catalog.html" class="d-block cs-image-scale cs-heading-highlight text-center">
-              <div class="cs-image-inner mb-3 rounded">
-                <img src="../../assets/img/ecommerce/home/categories/02.jpg" alt="Men’s">
-              </div>
-              <h3 class="h5 mb-1">Men’s</h3>
-            </a>
+
             <!-- Category -->
-            <a href="shop-catalog.html" class="d-block cs-image-scale cs-heading-highlight text-center">
-              <div class="cs-image-inner mb-3 rounded">
-                <img src="../../assets/img/ecommerce/home/categories/03.jpg" alt="Kids'">
-              </div>
-              <h3 class="h5 mb-1">Kids'</h3>
-            </a>
           </div>
         </div>
     </section>
@@ -239,7 +211,7 @@
             <div *ngFor="let item of categorias">
               <a [routerLink]="['/productos/categoria/',item.titulo.toLowerCase()]" class="d-block cs-image-scale cs-heading-highlight text-center">
                 <div class="cs-image-inner rounded-circle mx-auto mb-4" style="max-width: 180px;">
-                  <img [src]="item.portada" alt="Category image">
+                  
                 </div>
                 <h3 class="h5 mb-3">{{item.titulo}}</h3>
               </a>
@@ -308,42 +280,6 @@
         </div>
     </section>
 
-
-    <!-- Insagram -->
-    <section class="pt-5 pb-4 pt-lg-6 pb-lg-5 border-top border-bottom">
-        <div class="container pt-md-4 pb-2 pt-lg-0 pb-lg-0">
-          <div class="row">
-            <div class="col-md-4 text-center text-md-left pb-2 pb-md-0 mb-4 mb-md-0">
-              <p class="text-dark text-uppercase mb-2">Siguenos en Instagram</p>
-              <h2 class="h1 pb-2 pb-md-3">@createx_store</h2>
-              <a href="#" class="btn btn-outline-primary btn-lg">
-                <i class="cxi-instagram font-size-lg mr-1"></i>
-                Siguenos en Instagram
-              </a>
-            </div>
-            <div class="col-md-8">
-              <div class="cs-carousel cs-nav-outside">
-                <div class="cs-carousel-inner cs-carousel-inner-six" data-carousel-options='{
-                  
-                }'>
-                  <!-- Image -->
-                  <div>
-                    <img src="../../assets/img/ecommerce/home/instagram/01.jpg" alt="Image">
-                  </div>
-                  <!-- Image -->
-                  <div>
-                    <img src="../../assets/img/ecommerce/home/instagram/02.jpg" alt="Image">
-                  </div>
-                  <!-- Image -->
-                  <div>
-                    <img src="../../assets/img/ecommerce/home/instagram/03.jpg" alt="Image">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 </main>
 
 

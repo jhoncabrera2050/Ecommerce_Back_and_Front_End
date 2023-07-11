@@ -8,9 +8,9 @@ import { IndexProductoComponent } from "./components/productos/index-producto/in
 import { ShowProductoComponent } from "./components/productos/show-producto/show-producto.component";
 import { CarritoComponent } from "./components/carrito/carrito.component";
 import { DireccionesComponent } from "./components/usuario/direcciones/direcciones.component";
-import { ContactoComponent } from "./components/contacto/contacto.component";
 import { IndexOrdenesComponent } from "./components/usuario/ordenes/index-ordenes/index-ordenes.component";
 import { DetalleOrdenComponent } from "./components/usuario/ordenes/detalle-orden/detalle-orden.component";
+import { RegisterComponent } from "./components/register/register.component";
 
 const appRoutes: Routes = [
     {path: '', component:InicioComponent},
@@ -24,7 +24,8 @@ const appRoutes: Routes = [
     {path: 'productos/categoria/:categoria', component: IndexProductoComponent},
 
     {path:'productos/:slug', component:ShowProductoComponent},
-    {path: 'contacto', component:ContactoComponent},
+    {path:'registro',component:RegisterComponent},
+
     
 ];
 

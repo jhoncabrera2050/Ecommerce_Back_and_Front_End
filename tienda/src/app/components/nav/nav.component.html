@@ -4,9 +4,7 @@
     <!-- Remove "navbar-sticky" class to make navigation bar scrollable with the page -->
     <div class="navbar navbar-expand-lg navbar-light bg-light navbar-sticky" data-fixed-element>
       <div class="container px-0 px-xl-3">
-        <a href="index.html" class="navbar-brand order-lg-1 mr-0 pr-lg-3 mr-lg-4">
-          <img src="assets/img/ecommerce/logo.svg" alt="Createx Logo" width="130">
-        </a>
+
         <!-- Search desktop -->
         <div class="input-group-overlay ml-4 d-lg-block d-none order-lg-3" style="max-width: 21rem;">
           <input class="form-control appended-form-control" type="text" placeholder="Search for products...">
@@ -36,11 +34,6 @@
                       <i class="ci-profile me-2"></i>
                       Perfil
                       
-                    </a>
-                    <a href="#" class="dropdown-item">
-                      <i class="ci-comment me-2"></i>
-                      Messages
-                      <span class="badge rounded-pill bg-success ms-2">5</span>
                     </a>
                     <a (click)="logout()" class="dropdown-item" style="cursor:pointer">
                       <i class="cxi-logout me-2"></i>
@@ -96,9 +89,6 @@
                   <a [routerLink]="['/productos/categoria/',item.titulo.toLowerCase()]" routerLinkActive="router-link-active"  class="dropdown-item"><i class="{{item.icono}}"></i> &nbsp; {{item.titulo}}</a>
                 </li>
               </ul>
-            </li>
-            <li class="nav-item">
-              <a [routerLink]="['/contacto']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="nav-link">Conctacto</a>
             </li>
            
           </ul>
