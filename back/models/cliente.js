@@ -7,7 +7,7 @@ const ClienteSchema = new Schema({
     pais: { type: String, required: false },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    perfil: { type: String, default: 'perfil.png', required: true },
+    perfil: { type: String, default: 'perfil.png', required: false },
     telefono: { type: String, required: false },
     genero: { type: String, required: false },
     f_nacimiento: { type: String, required: false },
